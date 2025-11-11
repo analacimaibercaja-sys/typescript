@@ -1,0 +1,26 @@
+Vamos a pensar que tenemos un almacén de Regalos.
+Realmente la clase Regalo será una clase abstracta, no tendremos la posibilidad de crearnos Regalos, sino las implementaciones de ellos.
+Todos los Regalos deben de devolver el identificativo único que tienen. Este identificativo será uno que cumpla con lo siguiente:
+Los tres primeros caracteres del identificador deberán de ser letras mayúsculas, el resto números cuatro números.
+Además todos los regalos tienen un precio de compra y un precio de venta.
+Crear un método para calcular el beneficio, se llamará beneficio y lo tendrán que tener también todos los Regalos.
+Que tipos de regalos tenemos.
+Jarron Ming: Precio de compra: 100, Precio de venta: 200 
+Taza Mong: Precio de compra: 10, precio de venta 22
+Colgante Chulin: Precio de compra: 120, precio de venta 140.
+
+Estos regalos serán de estas clases. 
+Nos piden que creemos una colección con dos elementos de cada uno de los regalos y calcular el precio de compra total, el precio de venta total, el precio de compra medio, el precio de venta medio y el beneficio.
+
+En el trabajo tenemos el jefe de compra y el jefe de ventas.
+Ordenar
+Cuando trabajemos con la colección, seremos capaces de ordenar los regalos por importe de compra, por importe de venta y por beneficio. 
+
+Transformar
+Nos suben el IVA de todos los productos en su parte de entrada, multiplicaremos el contenido de importe de compra y de importe de venta por el nuevo porcentaje 0.28 que nos han pasado.
+
+Para cada elemento.
+Mostrar el log indicando el identificador y el beneficio.
+
+
+

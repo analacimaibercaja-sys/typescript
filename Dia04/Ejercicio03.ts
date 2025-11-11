@@ -35,7 +35,7 @@
 
 let perro = new Animal (2017,10,7,"Cora");
 console.log(perro.dameEdad());
-console.log(perro.dameDatos);
+console.log(perro.dameDatos());
 
 class Mamifero extends Animal{
     mesesGestacion: number;
