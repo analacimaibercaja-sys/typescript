@@ -1,0 +1,17 @@
+Tenemos un centro de venta de Coches.
+Queremos vender coches.
+El coche va a tener un precio.
+El precio será la suma del precio de sus partes.
+
+Coche
+	4 Ruedas.
+	1 Carroceria.
+	1 Volante.
+
+Coche implementará IValorable (damePrecio)
+Rueda implemntará IValorable (damePrecio)
+Carroceria impementará IValorable (damePrecio)
+Volante implementará IValorable (damePrecio).
+
+Nuestro cliente, quiere ir añadiendo coches a su stock y calcular cual es el precio total de todo el concesionario.
+El concesionario será una clase que implemente IValorable(damePrecio)

@@ -1,0 +1,22 @@
+Desarrollar un programa en TypeScript para gestionar los pacientes de una clínica. 
+Para ello, se debe implementar un programa utilizando clases, herencia y arreglos de objetos, cumpliendo con los siguientes requisitos: 1. Clase base Paciente: 
+	o Debe tener las propiedades: nombre (string), edad (number), dni (string) 
+	o Debe contar con un método mostrarInfo() que retorne la información básica del paciente. 
+2. Clase PacienteConsulta (hereda de Paciente): 
+	o Debe agregar la propiedad especialidad (string). 
+	o Debe sobrescribir el método mostrarInfo() para incluir la especialidad. 
+3. Clase PacienteHospitalizado (hereda de Paciente): 
+	o Debe agregar las propiedades: 
+		▪ diasHospitalizado (number) 
+		▪ diagnostico (string) 
+	o Debe sobrescribir el método mostrarInfo() para incluir los días hospitalizado y el diagnóstico. 
+4. Arreglo de objetos: 
+	o Se debe crear un arreglo que almacene al menos cuatro pacientes, combinando instancias de PacienteConsulta y PacienteHospitalizado. 
+5. Mostrar información: 
+	o Utilizar un bucle (forEach) para recorrer el arreglo e imprimir la información de cada paciente.  
+
+Ejemplo de Resultado esperado: 
+Nombre: Juan Pérez, Edad: 30, DNI: 12345678, Especialidad: Cardiología   
+Nombre: María López, Edad: 45, DNI: 87654321, Días hospitalizado: 5, Diagnóstico: Neumonía   
+Nombre: Carlos Gómez, Edad: 28, DNI: 11223344, Especialidad: Dermatología   
+Nombre: Ana Torres, Edad: 50, DNI: 44332211, Días hospitalizado: 10, Diagnóstico: Cirugía 
