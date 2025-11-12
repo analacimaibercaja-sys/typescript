@@ -1,7 +1,7 @@
 interface ICadenable
 {
-    TodosLosElementosMayorQue(numeroCaracteres : number) : Boolean
-    AlgunoDeLosElementosMayorQue(numeroCaracteres:  number): Boolean
+    TodosLosElementosMayorQue(numeroCaracteres : number) : boolean
+    AlgunoDeLosElementosMayorQue(numeroCaracteres:  number): boolean
     MuestraContenidoArray(): void
     FiltraPorPrimeraLetra(letra: string):string[]
     InvierteCadenas(): string[]
@@ -17,7 +17,7 @@ interface ICadenable
 }
 class ProcesoCadenasV01 implements ICadenable
 {
-    private elementos: string[];
+    private readonly elementos: string[];
 
     constructor(elementos: string[]) {
         this.elementos = elementos;
@@ -50,7 +50,7 @@ class ProcesoCadenasV01 implements ICadenable
         return copia;
     }
 
-    AlgunoDeLosElementosMayorQue(numeroCaracteres: number): Boolean {
+    AlgunoDeLosElementosMayorQue(numeroCaracteres: number): boolean {
         return this.elementos.some(el => el.length > numeroCaracteres);
     }
     AñadirNuevosElementosAlArray(cadenas: string[]): void {
@@ -126,7 +126,7 @@ class ProcesoCadenasV01 implements ICadenable
         });
     }
 
-    TodosLosElementosMayorQue(numeroCaracteres: number): Boolean {
+    TodosLosElementosMayorQue(numeroCaracteres: number): boolean {
         return this.elementos.every(el => el.length > numeroCaracteres);
     }
 
@@ -142,7 +142,7 @@ class Padron
     }
     DamePadron():string[]
     {
-        return this.GestorDeCadenas.DameRebanadaDeArray(1,3);
+    return this.GestorDeCadenas.DameRebanadaDeArray(1,3);
     }
 }
 

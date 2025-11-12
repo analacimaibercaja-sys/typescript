@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Módulo Lunar - Agmunsen</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e293b 0%, #581c87 50%, #1e293b 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .astronauta-info {
+            color: #c084fc;
+            font-size: 1.1rem;
+        }
+
+        .controles {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .control-grupo {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .control-grupo label {
+            display: block;
+            color: white;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+        }
+
+        .control-grupo select {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .formulario {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            margin-bottom: 30px;
+        }
+
+        .formulario.oculto {
+            display: none;
+        }
+
+        .grid-2col {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .campo {
+            margin-bottom: 15px;
+        }
+
+        .campo label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: #374151;
+        }
+
+        .campo input,
+        .campo select {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #d1d5db;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .campo input:focus,
+        .campo select:focus {
+            outline: none;
+            border-color: #2563eb;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 12px;
+            background: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+            margin-top: 10px;
+        }
+
+        .btn-submit:hover {
+            background: #1d4ed8;
+        }
+
+        .resultado {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            display: none;
+        }
+
+        .resultado.visible {
+            display: block;
+        }
+
+        .validacion {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .validacion.valida {
+            background: #d1fae5;
+        }
+
+        .validacion.invalida {
+            background: #fee2e2;
+        }
+
+        .emoji {
+            font-size: 4rem;
+            margin-bottom: 10px;
+        }
+
+        .validacion h2 {
+            font-size: 1.5rem;
+            margin: 0;
+        }
+
+        .validacion.valida h2 {
+            color: #059669;
+        }
+
+        .validacion.invalida h2 {
+            color: #dc2626;
+        }
+
+        .info-roca {
+            border-top: 2px solid #e5e7eb;
+            padding-top: 20px;
+        }
+
+        .info-roca h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: #1f2937;
+        }
+
+        .info-roca p {
+            margin-bottom: 10px;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        .info-roca strong {
+            color: #4b5563;
+            min-width: 180px;
+            display: inline-block;
+        }
+
+        @media (max-width: 768px) {
+            .controles {
+                grid-template-columns: 1fr;
+            }
+            
+            .grid-2col {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🌙 Módulo Lunar</h1>
+            <p class="astronauta-info" id="astronauta-info"></p>
+        </header>
+
+        <div class="controles">
+            <div class="control-grupo">
+                <label for="tipo-formulario">Tipo de Formulario:</label>
+                <select id="tipo-formulario">
+                    <option value="extendida">Extendida (con labels)</option>
+                    <option value="reducida">Reducida (placeholders)</option>
+                </select>
+            </div>
+
+            <div class="control-grupo">
+                <label for="validador">Criterio de Validación:</label>
+                <select id="validador">
+                    <option value="igneo">Ígneo</option>
+                    <option value="metamorfico">Metamórfico</option>
+                    <option value="sedimentario">Sedimentario</option>
+                </select>
+            </div>
+
+            <div class="control-grupo">
+                <label for="formato-salida">Formato de Salida:</label>
+                <select id="formato-salida">
+                    <option value="europeo">Europeo (Español/°C)</option>
+                    <option value="americano">Americano (English/°F)</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Formulario Extendida -->
+        <div id="form-extendida" class="formulario">
+            <div class="grid-2col">
+                <div class="campo">
+                    <label>ID (LLDDDDLL):</label>
+                    <input type="text" id="ext-id" required>
+                </div>
+                <div class="campo">
+                    <label>Nombre:</label>
+                    <input type="text" id="ext-nombre" required>
+                </div>
+                <div class="campo">
+                    <label>Grupo/Origen:</label>
+                    <select id="ext-grupo">
+                        <option value="igneas">Ígneas</option>
+                        <option value="metamorficas">Metamórficas</option>
+                        <option value="sedimentarias">Sedimentarias</option>
+                    </select>
+                </div>
+                <div class="campo">
+                    <label>Dureza (1-10):</label>
+                    <input type="number" id="ext-dureza" min="1" max="10" required>
+                </div>
+                <div class="campo">
+                    <label>Tamaño de grano:</label>
+                    <select id="ext-tamano-grano">
+                        <option value="muy-grueso">Muy grueso (&gt; 30mm)</option>
+                        <option value="grueso">Grueso (5-30mm)</option>
+                        <option value="medio">Medio (2-5mm)</option>
+                        <option value="fino">Fino (&lt; 2mm)</option>
+                    </select>
+                </div>
+                <div class="campo">
+                    <label>Clasificación:</label>
+                    <select id="ext-clasificacion">
+                        <option value="construccion">Construcción</option>
+                        <option value="ornamental">Ornamental</option>
+                        <option value="utensilios">Utensilios</option>
+                        <option value="machacadas">Piedras machacadas</option>
+                    </select>
+                </div>
+                <div class="campo">
+                    <label>Tamaño de cristales (0-10):</label>
+                    <input type="number" id="ext-cristales" min="0" max="10" required>
+                </div>
+                <div class="campo">
+                    <label>Temperatura de formación (K):</label>
+                    <input type="number" id="ext-temperatura" min="-100" max="100" required>
+                </div>
+                <div class="campo">
+                    <label>Estructura:</label>
+                    <input type="text" id="ext-estructura" required>
+                </div>
+                <div class="campo">
+                    <label>Forma de los granos:</label>
+                    <input type="text" id="ext-forma-granos" required>
+                </div>
+                <div class="campo">
+                    <label>Textura:</label>
+                    <select id="ext-textura">
+                        <option value="vitrea">Vítrea</option>
+                        <option value="afanitica">Afanítica</option>
+                        <option value="faneritica">Fanerítica</option>
+                    </select>
+                </div>
+            </div>
+            <button class="btn-submit" onclick="analizarRoca('extendida')">Analizar Mineral</button>
+        </div>
+
+        <!-- Formulario Reducida -->
+        <div id="form-reducida" class="formulario oculto">
+            <div class="campo">
+                <input type="text" id="red-id" placeholder="ID (ej: AB1234CD)" required>
+            </div>
+            <div class="campo">
+                <input type="text" id="red-nombre" placeholder="Nombre del mineral" required>
+            </div>
+            <div class="campo">
+                <select id="red-grupo">
+                    <option value="">-- Grupo/Origen --</option>
+                    <option value="igneas">Ígneas</option>
+                    <option value="metamorficas">Metamórficas</option>
+                    <option value="sedimentarias">Sedimentarias</option>
+                </select>
+            </div>
+            <div class="campo">
+                <input type="number" id="red-dureza" placeholder="Dureza (1-10)" min="1" max="10" required>
+            </div>
+            <div class="campo">
+                <select id="red-tamano-grano">
+                    <option value="">-- Tamaño de grano --</option>
+                    <option value="muy-grueso">Muy grueso</option>
+                    <option value="grueso">Grueso</option>
+                    <option value="medio">Medio</option>
+                    <option value="fino">Fino</option>
+                </select>
+            </div>
+            <div class="campo">
+                <select id="red-clasificacion">
+                    <option value="">-- Clasificación --</option>
+                    <option value="construccion">Construcción</option>
+                    <option value="ornamental">Ornamental</option>
+                    <option value="utensilios">Utensilios</option>
+                    <option value="machacadas">Machacadas</option>
+                </select>
+            </div>
+            <div class="campo">
+                <input type="number" id="red-cristales" placeholder="Tamaño cristales (0-10)" min="0" max="10" required>
+            </div>
+            <div class="campo">
+                <input type="number" id="red-temperatura" placeholder="Temperatura (K)" min="-100" max="100" required>
+            </div>
+            <div class="campo">
+                <input type="text" id="red-estructura" placeholder="Estructura" required>
+            </div>
+            <div class="campo">
+                <input type="text" id="red-forma-granos" placeholder="Forma de los granos" required>
+            </div>
+            <div class="campo">
+                <select id="red-textura">
+                    <option value="">-- Textura --</option>
+                    <option value="vitrea">Vítrea</option>
+                    <option value="afanitica">Afanítica</option>
+                    <option value="faneritica">Fanerítica</option>
+                </select>
+            </div>
+            <button class="btn-submit" onclick="analizarRoca('reducida')">Analizar Mineral</button>
+        </div>
+
+        <!-- Resultado -->
+        <div id="resultado" class="resultado">
+            <div id="validacion-display" class="validacion"></div>
+            <div id="info-roca" class="info-roca"></div>
+        </div>
+    </div>
+
+    <script>
+        // Interfaces y Clases en TypeScript (transpilado a JS)
+        class Astronauta {
+            constructor(identificador, nombreCompleto, edad) {
+                this.identificador = identificador;
+                this.nombreCompleto = nombreCompleto;
+                this.edad = edad;
+            }
+            dameId() { return this.identificador; }
+            dameNombre() { return this.nombreCompleto; }
+            dameEdad() { return this.edad; }
+        }
+
+        class ValidadorIgneo {
+            getNombre() { return 'Ígneo'; }
+            isValid(roca) {
+                return roca.grupo === 'igneas' && roca.tamanoGrano === 'muy-grueso';
+            }
+        }
+
+        class ValidadorMetamorfico {
+            getNombre() { return 'Metamórfico'; }
+            isValid(roca) {
+                return roca.grupo === 'metamorficas' && 
+                       (roca.tamanoGrano === 'medio' || roca.tamanoGrano === 'fino') &&
+                       roca.textura === 'vitrea';
+            }
+        }
+
+        class ValidadorSedimentario {
+            getNombre() { return 'Sedimentario'; }
+            isValid(roca) {
+                return roca.grupo === 'sedimentarias' && roca.textura === 'faneritica';
+            }
+        }
+
+        // Variables globales
+        const astronauta = new Astronauta("AG001", "Agmunsen Pérez", 45);
+        let validadorActual = new ValidadorIgneo();
+
+        // Inicialización
+        document.getElementById('astronauta-info').textContent = 
+            `Astronauta: ${astronauta.dameNombre()} (ID: ${astronauta.dameId()}, Edad: ${astronauta.dameEdad()})`;
+
+        // Event Listeners
+        document.getElementById('tipo-formulario').addEventListener('change', function() {
+            const formExt = document.getElementById('form-extendida');
+            const formRed = document.getElementById('form-reducida');
+            
+            if (this.value === 'extendida') {
+                formExt.classList.remove('oculto');
+                formRed.classList.add('oculto');
+            } else {
+                formExt.classList.add('oculto');
+                formRed.classList.remove('oculto');
+            }
+        });
+
+        document.getElementById('validador').addEventListener('change', function() {
+            if (this.value === 'igneo') {
+                validadorActual = new ValidadorIgneo();
+            } else if (this.value === 'metamorfico') {
+                validadorActual = new ValidadorMetamorfico();
+            } else {
+                validadorActual = new ValidadorSedimentario();
+            }
+        });
+
+        // Funciones
+        function validarID(id) {
+            const regex = /^[A-Z]{2}\d{4}[A-Z]{2}$/;
+            return regex.test(id);
+        }
+
+        function kelvinToFahrenheit(k) {
+            return ((k - 273.15) * 9/5 + 32).toFixed(2);
+        }
+
+        function kelvinToCelsius(k) {
+            return (k - 273.15).toFixed(2);
+        }
+
+        function obtenerDatosRoca(tipo) {
+            const prefix = tipo === 'extendida' ? 'ext' : 'red';
+            
+            return {
+                id: document.getElementById(`${prefix}-id`).value,
+                nombre: document.getElementById(`${prefix}-nombre`).value,
+                grupo: document.getElementById(`${prefix}-grupo`).value,
+                dureza: parseInt(document.getElementById(`${prefix}-dureza`).value),
+                tamanoGrano: document.getElementById(`${prefix}-tamano-grano`).value,
+                clasificacion: document.getElementById(`${prefix}-clasificacion`).value,
+                tamanoCristales: parseInt(document.getElementById(`${prefix}-cristales`).value),
+                temperaturaFormacion: parseInt(document.getElementById(`${prefix}-temperatura`).value),
+                estructura: document.getElementById(`${prefix}-estructura`).value,
+                formaGranos: document.getElementById(`${prefix}-forma-granos`).value,
+                textura: document.getElementById(`${prefix}-textura`).value
+            };
+        }
+
+        function analizarRoca(tipo) {
+            const roca = obtenerDatosRoca(tipo);
+            
+            if (!validarID(roca.id)) {
+                alert('El ID debe tener el formato LLDDDDLL (2 letras, 4 números, 2 letras)');
+                return;
+            }
+
+            if (!roca.grupo || !roca.tamanoGrano || !roca.textura) {
+                alert('Por favor completa todos los campos');
+                return;
+            }
+
+            const esValida = validadorActual.isValid(roca);
+            const formato = document.getElementById('formato-salida').value;
+
+            mostrarResultado(roca, esValida, formato);
+        }
+
+        function mostrarResultado(roca, esValida, formato) {
+            const resultado = document.getElementById('resultado');
+            const validacionDiv = document.getElementById('validacion-display');
+            const infoDiv = document.getElementById('info-roca');
+
+            resultado.classList.add('visible');
+
+            if (esValida) {
+                validacionDiv.className = 'validacion valida';
+                validacionDiv.innerHTML = `
+                    <div class="emoji">😊</div>
+                    <h2>${formato === 'americano' ? 'Valid Rock!' : '¡Roca Válida!'}</h2>
+                `;
+
+                if (formato === 'europeo') {
+                    infoDiv.innerHTML = `
+                        <h3>Información de la Roca (Formato Europeo)</h3>
+                        <p><strong>ID:</strong> ${roca.id}</p>
+                        <p><strong>Nombre:</strong> ${roca.nombre}</p>
+                        <p><strong>Grupo:</strong> ${roca.grupo}</p>
+                        <p><strong>Dureza:</strong> ${roca.dureza}</p>
+                        <p><strong>Tamaño de grano:</strong> ${roca.tamanoGrano}</p>
+                        <p><strong>Clasificación:</strong> ${roca.clasificacion}</p>
+                        <p><strong>Tamaño de cristales:</strong> ${roca.tamanoCristales}</p>
+                        <p><strong>Temperatura:</strong> ${kelvinToCelsius(roca.temperaturaFormacion)}°C</p>
+                        <p><strong>Estructura:</strong> ${roca.estructura}</p>
+                        <p><strong>Forma de los granos:</strong> ${roca.formaGranos}</p>
+                        <p><strong>Textura:</strong> ${roca.textura}</p>
+                    `;
+                } else {
+                    infoDiv.innerHTML = `
+                        <h3>Rock Information (American Format)</h3>
+                        <p><strong>ID:</strong> ${roca.id}</p>
+                        <p><strong>Name:</strong> ${roca.nombre}</p>
+                        <p><strong>Group:</strong> ${roca.grupo}</p>
+                        <p><strong>Hardness:</strong> ${roca.dureza}</p>
+                        <p><strong>Grain size:</strong> ${roca.tamanoGrano}</p>
+                        <p><strong>Classification:</strong> ${roca.clasificacion}</p>
+                        <p><strong>Crystal size:</strong> ${roca.tamanoCristales}</p>
+                        <p><strong>Temperature:</strong> ${kelvinToFahrenheit(roca.temperaturaFormacion)}°F</p>
+                        <p><strong>Structure:</strong> ${roca.estructura}</p>
+                        <p><strong>Grain shape:</strong> ${roca.formaGranos}</p>
+                        <p><strong>Texture:</strong> ${roca.textura}</p>
+                    `;
+                }
+            } else {
+                validacionDiv.className = 'validacion invalida';
+                validacionDiv.innerHTML = `
+                    <div class="emoji">😠</div>
+                    <h2>${formato === 'americano' ? 'Invalid Rock' : 'Roca No Válida'}</h2>
+                `;
+                infoDiv.innerHTML = '';
+            }
+        }
+    </script>
+</body>
+</html>
