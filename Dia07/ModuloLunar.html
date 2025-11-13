@@ -15,6 +15,10 @@
         <option value="extendida">Versión extendida</option>
         <option value="reducida">Versión reducida</option>
     </select>
+    <select id="selFormato">
+        <option value="americano">Formato americano</option>
+        <option value="europeo">Formato europeo</option>
+    </select>
 
     <!-- formulario para introducir los datos-->
 
@@ -29,7 +33,7 @@
             <option value="sedimentarias">Sedimentarias</option>
         </select>
         <label class="form-label" for="txtDurezaExt">Dureza (1-10):</label>
-        <input class="form-control" type="number" id="txtDurezaExt" name="txtDurezaExt" placeholder="Dureza (1-10)" min="1" max="10">
+        <input class="form-control" type="number" id="txtDurezaExt" name="txtDurezaExt" min="1" max="10">
         <select class="form-control" id="selGranoExt" name="selGranoExt">
             <option value="fino">Fino: <2 mm.</option>
             <option value="mediano">Mediano: 2 a 5 mm.</option>
@@ -39,37 +43,56 @@
         <select class="form-control" id="selClasificacionExt" name="selClasificacionExt">
             <option value="construccion">Rocas de Construcción </option>
             <option value="ornamentales">Rocas ornamentales</option>
-            <option value="uso-humano">Rocas de uso en utensilios para el hombre</option>
+            <option value="utensilios">Rocas de uso en utensilios para el hombre</option>
             <option value="machacadas">Piedras machacadas</option>
         </select>
         <label class="form-label" for="txtCristalExt">Tamaño de cristales (1-10):</label>
-        <input class="form-control" type="number" id="txtCristalExt" name="txtCristalExt" placeholder="Tamaño de cristales (1-10)" min="1" max="10">
+        <input class="form-control" type="number" id="txtCristalExt" name="txtCristalExt" min="1" max="10">
         <label class="form-label" for="txtTemperaturaExt">Temperatura en formación (-100º a 100º K):</label>
-        <input class="form-control" type="number" id="txtTemperaturaExt" name="txtTemperaturaExt" placeholder="Temperatura en formación (-100º a 100º K)" min="-100" max="100">
-        <textarea class="form-control" id="txtEstructuraExt" name="txtEstructuraExt" placeholder="Estructura"></textarea>
-        <textarea class="form-control" id="txtFormaGranosExt" name="txtFormaGranosExt" placeholder="Forma de los granos"></textarea>
+        <input class="form-control" type="number" id="txtTemperaturaExt" name="txtTemperaturaExt"  min="-100" max="100">
+        <textarea class="form-control" id="txtEstructuraExt" name="txtEstructuraExt" ></textarea>
+        <textarea class="form-control" id="txtFormaGranosExt" name="txtFormaGranosExt" ></textarea>
         <select class="form-control" id="selTexturaExt" name="selTexturaExt">
             <option value="Vitrea">Vitrea</option>
             <option value="afanitica">Afanítica</option>
             <option value="faneritica">Fanerítica</option>
         </select>
-
-        
-        <button type="button" id="btnSaludar">Saludar</button>
-        
+        <button type="button" id="btnSaludarExt">Saludar</button>  
      </form>
-     <form id="frmReducida">
 
-        <input id="txtIdentificadorRda" name="identificadorRda" placeholder="Id">
-
-        <input id="txtNombreRda" name="nombreRda" placeholder="Nombre">
-  
+     <form class="form" id="frmReducida">
+        <input class="form-control" id="txtIdentificadorRda" name="identificadorRda" >
+        <input class="form-control" id="txtNombreRda" name="nombreRda" >
+        <select class="form-control" id="selGrupoRda" name="selGrupoRda">
+            <option value="igneas">Ígneas</option>
+            <option value="metamórficas">Metamórficas</option>
+            <option value="sedimentarias">Sedimentarias</option>
+        </select>
+        <input class="form-control" type="number" id="txtDurezaRda" name="txtDurezaRda" placeholder="Dureza (1-10)" min="1" max="10">
+        <select class="form-control" id="selGranoRda" name="selGranoRda">
+            <option value="fino">Fino: <2 mm.</option>
+            <option value="mediano">Mediano: 2 a 5 mm.</option>
+            <option value="grueso">Grueso: 5 a 30 mm.</option>
+            <option value="muy-grueso">Muy grueso: >30 mm.</option>
+        </select>
+        <select class="form-control" id="selClasificacionRda" name="selClasificacionRda">
+            <option value="construccion">Rocas de Construcción </option>
+            <option value="ornamentales">Rocas ornamentales</option>
+            <option value="uso-humano">Rocas de uso en utensilios para el hombre</option>
+            <option value="machacadas">Piedras machacadas</option>
+        </select>
+        <input class="form-control" type="number" id="txtCristalRda" name="txtCristalRda" placeholder="Tamaño de cristales (1-10)" min="1" max="10">
+        <input class="form-control" type="number" id="txtTemperaturaRda" name="txtTemperaturaExt" placeholder="Temperatura en formación (-100º a 100º K)" min="-100" max="100">
+        <textarea class="form-control" id="txtEstructuraRda" name="txtEstructurRdat" placeholder="Estructura"></textarea>
+        <textarea class="form-control" id="txtFormaGranosRda" name="txtFormaGranosRda" placeholder="Forma de los granos"></textarea>
+        <select class="form-control" id="selTexturaRda" name="selTexturaRda">
+            <option value="Vitrea">Vitrea</option>
+            <option value="afanitica">Afanítica</option>
+            <option value="faneritica">Fanerítica</option>
+        </select>
         <button type="button" id="btnSaludarRda">Saludar</button>
-        
      </form>
-     <!-- pendiente de implementar
      <script src="ModuloLunar.js"></script>
-     -->
      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 
 
