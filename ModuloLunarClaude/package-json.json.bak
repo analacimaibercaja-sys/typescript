@@ -1,0 +1,24 @@
+{
+  "name": "modulo-lunar",
+  "version": "1.0.0",
+  "description": "Sistema de análisis de minerales lunares - Proyecto TypeScript",
+  "main": "dist/main.js",
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc --watch",
+    "dev": "tsc --watch & live-server",
+    "clean": "rm -rf dist"
+  },
+  "keywords": [
+    "typescript",
+    "minerales",
+    "lunar",
+    "bootstrap"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^5.3.3"
+  }
+}

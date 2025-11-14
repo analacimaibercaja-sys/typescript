@@ -168,37 +168,57 @@ class CriterioSedimentaria implements ICriterioValidacion {
 // SISTEMAS DE ENTRADA
 // ============================================
 
-class IntroduccionGenerica implements ISistemaEntrada {
-    constructor(
-        private nombre: string,
-        private prefix: string
-    ) { }
-
+class IntroduccionExtendida implements ISistemaEntrada {
     getNombre(): string {
-        return this.nombre;
+        return 'Extendida';
     }
 
     capturar(): ICapturable {
-        const obtener = (id: string) => (document.getElementById(id) as HTMLInputElement).value;
-        const obtenerSelect = (id: string) => (document.getElementById(id) as HTMLSelectElement).value;
-        const obtenerNumero = (id: string) => parseInt(obtener(id));
+        return this.capturarDatos('ext');
+    }
 
+    private capturarDatos(prefix: string): ICapturable {
         return new Mineral(
-            obtener(`${this.prefix}-id`),
-            obtener(`${this.prefix}-nombre`),
-            obtenerSelect(`${this.prefix}-grupo`) as any,
-            obtenerNumero(`${this.prefix}-dureza`),
-            obtenerSelect(`${this.prefix}-tamano-grano`) as any,
-            obtenerSelect(`${this.prefix}-clasificacion`) as any,
-            obtenerNumero(`${this.prefix}-cristales`),
-            obtenerNumero(`${this.prefix}-temperatura`),
-            obtener(`${this.prefix}-estructura`),
-            obtener(`${this.prefix}-forma-granos`),
-            obtenerSelect(`${this.prefix}-textura`) as any
+            (document.getElementById(`${prefix}-id`) as HTMLInputElement).value,
+            (document.getElementById(`${prefix}-nombre`) as HTMLInputElement).value,
+            (document.getElementById(`${prefix}-grupo`) as HTMLSelectElement).value as any,
+            parseInt((document.getElementById(`${prefix}-dureza`) as HTMLInputElement).value),
+            (document.getElementById(`${prefix}-tamano-grano`) as HTMLSelectElement).value as any,
+            (document.getElementById(`${prefix}-clasificacion`) as HTMLSelectElement).value as any,
+            parseInt((document.getElementById(`${prefix}-cristales`) as HTMLInputElement).value),
+            parseInt((document.getElementById(`${prefix}-temperatura`) as HTMLInputElement).value),
+            (document.getElementById(`${prefix}-estructura`) as HTMLInputElement).value,
+            (document.getElementById(`${prefix}-forma-granos`) as HTMLInputElement).value,
+            (document.getElementById(`${prefix}-textura`) as HTMLSelectElement).value as any
         );
     }
 }
 
+class IntroduccionReducida implements ISistemaEntrada {
+    getNombre(): string {
+        return 'Reducida';
+    }
+
+    capturar(): ICapturable {
+        return this.capturarDatos('red');
+    }
+
+    private capturarDatos(prefix: string): ICapturable {
+        return new Mineral(
+            (document.getElementById(`${prefix}-id`) as HTMLInputElement).value,
+            (document.getElementById(`${prefix}-nombre`) as HTMLInputElement).value,
+            (document.getElementById(`${prefix}-grupo`) as HTMLSelectElement).value as any,
+            parseInt((document.getElementById(`${prefix}-dureza`) as HTMLInputElement).value),
+            (document.getElementById(`${prefix}-tamano-grano`) as HTMLSelectElement).value as any,
+            (document.getElementById(`${prefix}-clasificacion`) as HTMLSelectElement).value as any,
+            parseInt((document.getElementById(`${prefix}-cristales`) as HTMLInputElement).value),
+            parseInt((document.getElementById(`${prefix}-temperatura`) as HTMLInputElement).value),
+            (document.getElementById(`${prefix}-estructura`) as HTMLInputElement).value,
+            (document.getElementById(`${prefix}-forma-granos`) as HTMLInputElement).value,
+            (document.getElementById(`${prefix}-textura`) as HTMLSelectElement).value as any
+        );
+    }
+}
 
 // ============================================
 // SISTEMAS DE SALIDA
@@ -212,7 +232,7 @@ class FormatoEuropeo implements ISistemaSalida {
     mostrar(mineral: ICapturable): void {
         const infoDiv = document.getElementById('info-roca')!;
         infoDiv.innerHTML = `
-            <h3>Información del Mineral</h3>
+            <h3>Información del Mineral (Formato Europeo)</h3>
             <p><strong>ID:</strong> ${mineral.id}</p>
             <p><strong>Nombre:</strong> ${mineral.nombre}</p>
             <p><strong>Grupo:</strong> ${mineral.grupo}</p>
@@ -337,7 +357,7 @@ function inicializarAplicacion(): void {
 
     // Crear misión inicial
     const criterioInicial = new CriterioIgneas();
-    const entradaInicial = new IntroduccionGenerica('Extendida', 'ext');
+    const entradaInicial = new IntroduccionExtendida();
     const salidaInicial = new FormatoEuropeo();
 
     misionActual = new Mision(astronauta, criterioInicial, entradaInicial, salidaInicial);
@@ -355,11 +375,11 @@ function configurarEventListeners(): void {
         if (this.value === 'extendida') {
             formExt.classList.remove('oculto');
             formRed.classList.add('oculto');
-            misionActual.setEntrada(new IntroduccionGenerica('Extendida', 'ext'));
+            misionActual.setEntrada(new IntroduccionExtendida());
         } else {
             formExt.classList.add('oculto');
             formRed.classList.remove('oculto');
-            misionActual.setEntrada(new IntroduccionGenerica('Reducida', 'red'));
+            misionActual.setEntrada(new IntroduccionReducida());
         }
     });
 
@@ -443,7 +463,7 @@ function mostrarResultadoValidacion(esValido: boolean): void {
 document.addEventListener('DOMContentLoaded', inicializarAplicacion);
 
 // Hacer la función global accesible desde el HTML
-(globalThis as any).analizarMineral = analizarMineral;
+(window as any).analizarMineral = analizarMineral;
 
 // ============================================
 // EJEMPLO DE USO SEGÚN EL PLANTEAMIENTO

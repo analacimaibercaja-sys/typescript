@@ -18,7 +18,8 @@ export class Mision implements IMisionable {
      * @returns Objeto con validez y mensaje
      */
     Analiza(mineral: Mineral): { valido: boolean; mensaje: string } {
-        const esValido = this.criterio.esValid(mineral);
+        //const esValido = this.criterio.esValid(mineral);
+        const esValido = this.criterio.isValid(mineral);
         
         const mensaje = esValido 
             ? `El mineral ${mineral.nombre} cumple con el ${this.criterio.getNombre()}`
