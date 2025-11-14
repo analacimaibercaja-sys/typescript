@@ -1,3 +1,4 @@
+// interfaces.ts
 export interface ICapturable {
     id: string;
     nombre: string;
