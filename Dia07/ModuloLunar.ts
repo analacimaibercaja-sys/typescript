@@ -1,4 +1,5 @@
 
+
 interface ICapturable {
   id: string;
   nombre: string;

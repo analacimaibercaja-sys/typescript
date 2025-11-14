@@ -449,6 +449,9 @@ class Mision implements IMisionable {
         private entrada: ISistemaEntrada,
         private salida: ISistemaSalida
     ) {}
+    Analiza(roca: ICapturable): boolean {
+        throw new Error("Method not implemented.");
+    }
 
     /**
      * Método principal: Analiza un mineral capturable
@@ -552,7 +555,7 @@ function configurarEventListeners(): void {
             misionActual.setEntrada(new IntroduccionGenerica('Reducida', 'red'));
         }
     });
-/*
+
     // Cambio de criterio de validación
     document.getElementById('validador')!.addEventListener('change', function(this: HTMLSelectElement) {
         if (this.value === 'igneo') {
@@ -563,9 +566,8 @@ function configurarEventListeners(): void {
             misionActual.setCriterio(new CriterioSedimentaria());
         }
     });
-    */
 
-    // Cambio de formato de salida
+    //Cambio de formato de salida
     document.getElementById('formato-salida')!.addEventListener('change', function(this: HTMLSelectElement) {
         if (this.value === 'europeo') {
             misionActual.setSalida(new FormatoEuropeo());

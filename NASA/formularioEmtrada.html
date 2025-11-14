@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Formulario: Minerales - Agmun</title>
+    <style>
+        body { font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial; padding: 24px; background:#f7f8fb; color:#111 }
+        form { background:#fff; padding:18px; border-radius:8px; box-shadow:0 6px 18px rgba(20,30,50,0.06); max-width:800px }
+        fieldset { border:0; margin:0 0 12px 0; padding:0 }
+        label { display:block; font-weight:600; margin:8px 0 6px }
+        input[type="text"], input[type="number"], select, textarea { width:100%; padding:8px 10px; border:1px solid #d6dbe6; border-radius:6px; box-sizing:border-box }
+        .row { display:flex; gap:12px; }
+        .col { flex:1 }
+        .hint { font-size:12px; color:#556; margin-top:4px }
+        .inline { display:inline-flex; align-items:center; gap:8px; margin-right:12px }
+        button { background:#0b69ff; color:#fff; border:0; padding:10px 14px; border-radius:6px; cursor:pointer }
+        pre { background:#0f1724; color:#dbeafe; padding:12px; border-radius:6px; overflow:auto }
+    </style>
+</head>
+<body>
+    <h1>Registro de mineral — Agmun</h1>
+    <!-- Aqui pondremos un formulario u otro según sea-->
+
+    <script>
+        // Comportamientos pequeños: forzar mayúsculas en el Id y validar patrón antes de enviar.
+        const form = document.getElementById('mineralForm');
+        const idInput = document.getElementById('minId');
+        const output = document.getElementById('output');
+
+        idInput.addEventListener('input', () => {
+            // mantener en mayúsculas y sin espacios
+            idInput.value = idInput.value.toUpperCase().replace(/\s+/g,'');
+        });
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            output.textContent = '';
+            if (!form.checkValidity()) {
+                form.reportValidity();
+                return;
+            }
+            // crear objeto con los datos del formulario
+            const data = Object.fromEntries(new FormData(form).entries());
+            // Mostrar resultado como JSON para confirmar
+            output.innerHTML = '<p style="margin:6px 0 6px 0;font-weight:600">Datos enviados (vista previa):</p><pre>' +
+                JSON.stringify(data, null, 2) + '</pre>';
+            // Aquí se podría enviar 'data' a un servidor con fetch()
+        });
+    </script>
+</body>
+</html>

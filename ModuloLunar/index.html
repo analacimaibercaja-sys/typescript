@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌙 Módulo Lunar - Agmunsen</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #1e40af 0%, #7e22ce 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .astronauta-info {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-top: 10px;
+        }
+
+        .controles {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            padding: 25px;
+            background: #f8fafc;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        .control-grupo {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border: 2px solid #e2e8f0;
+        }
+
+        .control-grupo label {
+            display: block;
+            color: #1e293b;
+            font-weight: 600;
+            margin-bottom: 10px;
+            font-size: 0.95rem;
+        }
+
+        .control-grupo select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 1rem;
+            background: white;
+            transition: all 0.3s ease;
+        }
+
+        .control-grupo select:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .formulario {
+            background: white;
+            padding: 30px;
+            margin: 0 25px 25px 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e2e8f0;
+        }
+
+        .formulario.oculto {
+            display: none;
+        }
+
+        .grid-2col {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .campo {
+            margin-bottom: 20px;
+        }
+
+        .campo label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #374151;
+            font-size: 0.9rem;
+        }
+
+        .campo input,
+        .campo select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .campo input:focus,
+        .campo select:focus {
+            outline: none;
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .campo input::placeholder {
+            color: #9ca3af;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .btn-submit:hover {
+            background: linear-gradient(135deg, #059669 0%, #047857 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 15px rgba(5, 150, 105, 0.3);
+        }
+
+        .resultado {
+            background: white;
+            padding: 30px;
+            margin: 0 25px 25px 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e2e8f0;
+            display: none;
+        }
+
+        .resultado.visible {
+            display: block;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .validacion {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 30px;
+            border-radius: 10px;
+            animation: pulse 2s infinite;
+        }
+
+        .validacion.valida {
+            background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+            border: 2px solid #10b981;
+        }
+
+        .validacion.invalida {
+            background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+            border: 2px solid #ef4444;
+        }
+
+        .emoji {
+            font-size: 4rem;
+            margin-bottom: 15px;
+            animation: bounce 1s infinite alternate;
+        }
+
+        @keyframes bounce {
+            from {
+                transform: translateY(0);
+            }
+
+            to {
+                transform: translateY(-10px);
+            }
+        }
+
+        .validacion h2 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+
+        .validacion.valida h2 {
+            color: #059669;
+        }
+
+        .validacion.invalida h2 {
+            color: #dc2626;
+        }
+
+        .validacion p {
+            font-size: 1.1rem;
+            opacity: 0.8;
+        }
+
+        .info-roca {
+            border-top: 2px solid #e5e7eb;
+            padding-top: 25px;
+        }
+
+        .info-roca h3 {
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+            color: #1f2937;
+            text-align: center;
+        }
+
+        .grid-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 15px;
+        }
+
+        .info-item {
+            padding: 12px;
+            background: #f8fafc;
+            border-radius: 8px;
+            border-left: 4px solid #3b82f6;
+        }
+
+        .info-item strong {
+            color: #4b5563;
+            display: inline-block;
+            min-width: 160px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .controles {
+                grid-template-columns: 1fr;
+            }
+
+            .grid-2col {
+                grid-template-columns: 1fr;
+            }
+
+            .grid-info {
+                grid-template-columns: 1fr;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .container {
+                margin: 10px;
+            }
+
+            .formulario,
+            .resultado {
+                margin: 0 15px 15px 15px;
+            }
+        }
+
+        /* Estados de los campos */
+        .campo input:invalid,
+        .campo select:invalid {
+            border-color: #ef4444;
+        }
+
+        .campo input:valid,
+        .campo select:valid {
+            border-color: #10b981;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>Módulo Lunar</h1>
+            <p class="astronauta-info" id="astronauta-info">Cargando información del astronauta...</p>
+        </header>
+
+        <!-- Controles de configuración -->
+        <div class="controles">
+            <div class="control-grupo form-row mb-3">
+                <label for="tipo-formulario">Tipo de Formulario:</label>
+                <select class="form-control" id="tipo-formulario">
+                    <option value="extendida">Extendida (con etiquetas)</option>
+                    <option value="reducida">Reducida (con placeholders)</option>
+                </select>
+            </div>
+            <div class="control-grupo form-row mb-3">
+                <label for="validador">Criterio de Validación:</label>
+                <select class="form-control" id="validador">
+                    <option value="igneo">Ígneo (Grano muy grueso)</option>
+                    <option value="metamorfico">Metamórfico (Grano medio/fino + Vítrea)</option>
+                    <option value="sedimentario">Sedimentario (Fanerítica)</option>
+                </select>
+            </div>
+
+            <div class="control-grupo form-row mb-3">
+                <label for="formato-salida">Formato de Salida:</label>
+                <select class="form-control" id="formato-salida">
+                    <option value="europeo">Europeo (Español/°C)</option>
+                    <option value="americano">Americano (English/°F)</option>
+                </select>
+            </div>
+        </div>
+        <form>
+            <!-- Aquí va el formulario -->
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    ${labelId}
+                    <input type="text" class="form-control" id="inputId" maxlength="8"
+                        placeholder="${!isExtendido ? 'ID (formato LLDDDDLL) - Ej: AB1234CD' : 'Ej: AB1234CD'}"
+                        required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    ${labelNombre}
+                    <input type="text" class="form-control" id="inputNombre"
+                        placeholder="${!isExtendido ? 'Nombre del mineral' : ''}" required>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label-extended">Grupo / Origen</label>
+                <div class="d-flex gap-3">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="grupo" value="${TipoRoca.Ignea}"
+                            id="grupoIgnea">
+                        <label class="form-check-label" for="grupoIgnea">${TipoRoca.Ignea}</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="grupo" value="${TipoRoca.Metamorfica}"
+                            id="grupoMeta">
+                        <label class="form-check-label" for="grupoMeta">${TipoRoca.Metamorfica}</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="grupo" value="${TipoRoca.Sedimentaria}"
+                            id="grupoSedi">
+                        <label class="form-check-label" for="grupoSedi">${TipoRoca.Sedimentaria}</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    ${labelDureza}
+                    <input type="number" class="form-control" id="inputDureza" min="1" max="10" value="5"
+                        placeholder="${!isExtendido ? 'Dureza (1-10)' : ''}" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    ${labelCristales}
+                    <input type="number" class="form-control" id="inputCristales" min="0" max="10" step="0.1" value="5"
+                        placeholder="${!isExtendido ? 'Tamaño de cristales (0-10)' : ''}" required>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                
+                <label class="form-label-extended">Tamaño de grano</label>
+
+
+                <div class="row">
+                    <div class="col-6 col-md-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="tamanoGrano"
+                                value="${TamanoGrano.MuyGrueso}" id="granoMuyGrueso">
+                            <label class="form-check-label small" for="granoMuyGrueso">${TamanoGrano.MuyGrueso}</label>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="tamanoGrano"
+                                value="${TamanoGrano.Grueso}" id="granoGrueso">
+                            <label class="form-check-label small" for="granoGrueso">${TamanoGrano.Grueso}</label>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="tamanoGrano" value="${TamanoGrano.Medio}"
+                                id="granoMedio">
+                            <label class="form-check-label small" for="granoMedio">${TamanoGrano.Medio}</label>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="tamanoGrano" value="${TamanoGrano.Fino}"
+                                id="granoFino">
+                            <label class="form-check-label small" for="granoFino">${TamanoGrano.Fino}</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    ${labelClasificacion}
+                    <select class="form-select" id="inputClasificacion" required>
+                        <option value="">-- Seleccionar clasificación --</option>
+                        <option value="${Clasificacion.Construccion}">Construcción</option>
+                        <option value="${Clasificacion.Ornamental}">Ornamental</option>
+                        <option value="${Clasificacion.Utensilios}">Utensilios</option>
+                        <option value="${Clasificacion.Machacadas}">Piedras machacadas</option>
+                    </select>
+                </div>
+                <div class="col-md-6 mb-3">
+                    ${labelTemperatura}
+                    <input type="number" class="form-control" id="inputTemperatura" min="-100" max="100" step="0.1"
+                        value="0" placeholder="${!isExtendido ? 'Temperatura (-100 a 100 K)' : ''}" required>
+                    <div class="hint-text mt-1">Rango: -100 a 100 K</div>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                ${labelEstructura}
+                <textarea class="form-control" id="inputEstructura" rows="2"
+                    placeholder="${!isExtendido ? 'Estructura - Texto libre' : 'Texto libre sobre la estructura'}"></textarea>
+            </div>
+
+            <div class="mb-3">
+                ${labelForma}
+                <textarea class="form-control" id="inputForma" rows="2"
+                    placeholder="${!isExtendido ? 'Forma de los granos - Texto libre' : 'Texto libre sobre la forma de los granos'}"></textarea>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label-extended">Textura</label>
+                <div class="d-flex gap-3">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="textura" value="${Textura.Vitrea}"
+                            id="texturaVitrea">
+                        <label class="form-check-label" for="texturaVitrea">${Textura.Vitrea}</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="textura" value="${Textura.Afanitica}"
+                            id="texturaAfanitica">
+                        <label class="form-check-label" for="texturaAfanitica">${Textura.Afanitica}</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="textura" value="${Textura.Faneritica}"
+                            id="texturaFaneritica">
+                        <label class="form-check-label" for="texturaFaneritica">${Textura.Faneritica}</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="d-flex gap-2">
+                <button type="button" class="btn btn-primary" id="btnAnalizar">Analizar Mineral</button>
+                <button type="button" class="btn btn-secondary" id="btnLimpiar">Limpiar</button>
+            </div>
+        </form>
+        <!-- Resultado del análisis -->
+        <div id="resultado" class="resultado">
+            <div id="validacion-display" class="validacion"></div>
+            <div id="info-roca" class="info-roca"></div>
+        </div>
+    </div>
+
+    <script src="lunar-module.js"></script>
+</body>
+
+</html>

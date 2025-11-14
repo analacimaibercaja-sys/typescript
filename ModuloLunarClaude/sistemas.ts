@@ -1,0 +1,91 @@
+// sistemas.ts
+// Implementación de sistemas de entrada y salida de datos
+
+import { IEntrada, ISalida } from './interfaces';
+import { Mineral } from './types';
+
+// ==================== SISTEMAS DE ENTRADA ====================
+
+export class EntradaExtendida implements IEntrada {
+    muestra(): string {
+        return "extendido";
+    }
+}
+
+export class EntradaReducida implements IEntrada {
+    muestra(): string {
+        return "reducido";
+    }
+}
+
+// ==================== SISTEMAS DE SALIDA ====================
+
+export class FormatoEuropeo implements ISalida {
+    mostrar(mineral: Mineral): string {
+        const tempC = (mineral.temperaturaFormacion - 273.15).toFixed(2);
+        return `
+            <div class="row">
+                <div class="col-md-6">
+                    <h6 class="fw-bold text-primary">Información del Mineral</h6>
+                    <table class="table table-sm">
+                        <tbody>
+                            <tr><td class="fw-bold">ID:</td><td>${mineral.id}</td></tr>
+                            <tr><td class="fw-bold">Nombre:</td><td>${mineral.nombre}</td></tr>
+                            <tr><td class="fw-bold">Grupo:</td><td>${mineral.grupo}</td></tr>
+                            <tr><td class="fw-bold">Dureza:</td><td>${mineral.dureza} (Mohs)</td></tr>
+                            <tr><td class="fw-bold">Tamaño de grano:</td><td>${mineral.tamanoGrano}</td></tr>
+                            <tr><td class="fw-bold">Textura:</td><td>${mineral.textura}</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-md-6">
+                    <h6 class="fw-bold text-primary">Detalles Adicionales</h6>
+                    <table class="table table-sm">
+                        <tbody>
+                            <tr><td class="fw-bold">Clasificación:</td><td>${mineral.clasificacion}</td></tr>
+                            <tr><td class="fw-bold">Tamaño cristales:</td><td>${mineral.tamanoCristales}</td></tr>
+                            <tr><td class="fw-bold">Temperatura:</td><td>${tempC} °C</td></tr>
+                            <tr><td class="fw-bold">Estructura:</td><td>${mineral.estructura || 'N/A'}</td></tr>
+                            <tr><td class="fw-bold">Forma granos:</td><td>${mineral.formaGranos || 'N/A'}</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        `;
+    }
+}
+
+export class FormatoAmericano implements ISalida {
+    mostrar(mineral: Mineral): string {
+        const tempF = (((mineral.temperaturaFormacion - 273.15) * 9/5) + 32).toFixed(2);
+        return `
+            <div class="row">
+                <div class="col-md-6">
+                    <h6 class="fw-bold text-primary">Mineral Information</h6>
+                    <table class="table table-sm">
+                        <tbody>
+                            <tr><td class="fw-bold">ID:</td><td>${mineral.id}</td></tr>
+                            <tr><td class="fw-bold">Name:</td><td>${mineral.nombre}</td></tr>
+                            <tr><td class="fw-bold">Group:</td><td>${mineral.grupo}</td></tr>
+                            <tr><td class="fw-bold">Hardness:</td><td>${mineral.dureza} (Mohs)</td></tr>
+                            <tr><td class="fw-bold">Grain Size:</td><td>${mineral.tamanoGrano}</td></tr>
+                            <tr><td class="fw-bold">Texture:</td><td>${mineral.textura}</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-md-6">
+                    <h6 class="fw-bold text-primary">Additional Details</h6>
+                    <table class="table table-sm">
+                        <tbody>
+                            <tr><td class="fw-bold">Classification:</td><td>${mineral.clasificacion}</td></tr>
+                            <tr><td class="fw-bold">Crystal Size:</td><td>${mineral.tamanoCristales}</td></tr>
+                            <tr><td class="fw-bold">Temperature:</td><td>${tempF} °F</td></tr>
+                            <tr><td class="fw-bold">Structure:</td><td>${mineral.estructura || 'N/A'}</td></tr>
+                            <tr><td class="fw-bold">Grain Shape:</td><td>${mineral.formaGranos || 'N/A'}</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        `;
+    }
+}

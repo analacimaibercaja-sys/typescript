@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Módulo Lunar - Análisis de Minerales</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="card bg-dark text-white">
+            <div class="card-body">
+                <h1 class="h3 mb-2">Módulo Lunar - Análisis de Minerales</h1>
+                <div class="alert alert-info mb-0 mt-3">
+                    <strong>Astronauta:</strong> <span id="astronautaInfo"></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Configuración -->
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="mb-0">Configuración del Sistema</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Modo de Entrada:</label>
+                            <div class="btn-group w-100">
+                                <button type="button" class="btn btn-outline-primary active" id="btnExtendido">
+                                    Extendido (Labels)
+                                </button>
+                                <button type="button" class="btn btn-outline-primary" id="btnReducido">
+                                    Reducido (Placeholders)
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Criterio de Validación:</label>
+                            <select class="form-select" id="criterioSelect">
+                                <option value="igneas">Criterio Ígneas</option>
+                                <option value="metamorficas">Criterio Metamórficas</option>
+                                <option value="sedimentarias">Criterio Sedimentarias</option>
+                            </select>
+                            <div class="mt-2 small text-muted">
+                                <strong>Actual:</strong> <span id="criterioActual">Criterio Ígneas</span>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="form-label fw-bold">Formato de Salida:</label>
+                            <div class="btn-group w-100">
+                                <button type="button" class="btn btn-outline-success active" id="btnEuropeo">
+                                    Europeo (°C)
+                                </button>
+                                <button type="button" class="btn btn-outline-success" id="btnAmericano">
+                                    Americano (°F)
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="card" id="resultadoCard" style="display: none;">
+                    <div class="card-header text-white" id="resultadoHeader">
+                        <h5 class="mb-0" id="resultadoTitulo"></h5>
+                    </div>
+                    <div class="card-body text-center">
+                        <div class="emoji-result" id="resultadoEmoji"></div>
+                        <p class="mb-0" id="resultadoMensaje"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Formulario -->
+        <div class="card">
+            <div class="card-header bg-secondary text-white">
+                <h5 class="mb-0">Formulario de Entrada - <span id="modoFormularioTexto">Modo Extendido</span></h5>
+            </div>
+            <div class="card-body" id="formularioContainer"></div>
+        </div>
+
+        <!-- Salida de datos -->
+        <div class="card" id="salidaCard" style="display: none;">
+            <div class="card-header bg-info text-white">
+                <h5 class="mb-0">Resultado - <span id="formatoSalidaTexto">Formato Europeo</span></h5>
+            </div>
+            <div class="card-body" id="salidaContainer"></div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+    <script type="module" src="dist/main.js"></script>
+</body>
+</html>

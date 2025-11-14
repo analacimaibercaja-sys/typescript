@@ -1,0 +1,69 @@
+<form>
+    <div>
+        <div class="form-row mb-3">
+            <label for="txtId">Identificador:</label>
+            <input class="form-control" type="text" id="txtId" required pattern="[A-Z]{2}\d{4}[A-Z]{2}">
+        </div>
+        <div class="form-row mb-3">
+            <label for="txtNombre">Nombre del mineral:</label>
+            <input class="form-control" type="text" id="txtNombre" required>
+        </div>
+        <div class="form-row mb-3">
+            <select class="form-control" id="selGrupo" required>
+                <option value="">Grupo/Origen</option>
+                <option value="igneas">Ígneas</option>
+                <option value="metamorficas">Metamórficas</option>
+                <option value="sedimentarias">Sedimentarias</option>
+            </select>
+        </div>
+        <div class="form-row mb-3">
+            <label for="txtDureza">Dureza (1-10):</label>
+            <input class="form-control" type="number" id="txtDureza" min="1" max="10" required>
+        </div>
+        <div class="form-row mb-3">
+            <select class="form-control" id="selTamanoGrano" required>
+                <option value="">Tamaño de grano</option>
+                <option value="muy-grueso">Muy grueso</option>
+                <option value="grueso">Grueso</option>
+                <option value="medio">Medio</option>
+                <option value="fino">Fino</option>
+            </select>
+        </div>
+        <div class="form-row mb-3">
+            <select class="form-control" id="selClasificacion" required>
+                <option value="">Clasificación</option>
+                <option value="construccion">Construcción</option>
+                <option value="ornamental">Ornamental</option>
+                <option value="utensilios">Utensilios</option>
+                <option value="machacadas">Machacadas</option>
+            </select>
+        </div>
+        <div class="form-row mb-3">
+            <label for="txtCristales">Tamaño cristales (0-10):</label>
+            <input class="form-control" type="number" id="txtCristales" min="0" max="10" required>
+        </div>
+        <div class="form-row mb-3">
+            <label for="txtTemperatura">Temperatura (K):</label>
+            <input class="form-control" type="number" id="txtTemperatura" min="-100" max="100" required>
+        </div>
+        <div class="form-row mb-3">
+            <label for="txtEstructura">Estructura:</label>
+            <input class="form-control" type="text" id="txtEstructura" required>
+        </div>
+        <div class="form-row mb-3">
+            <label for="txtFormaGranos">Forma de los granos:</label>
+            <input class="form-control" type="text" id="txtFormaGranos" required>
+        </div>
+        <div class="form-row mb-3">
+            <select id="selTextura" required>
+                <option value="">Textura</option>
+                <option value="vitrea">Vítrea</option>
+                <option value="afanitica">Afanítica</option>
+                <option value="faneritica">Fanerítica</option>
+            </select>
+        </div>
+        <button class= "form-control" id="btnSubmit" onclick="analizarMineral()">
+            Analizar Mineral
+        </button>
+    </div>
+</form>

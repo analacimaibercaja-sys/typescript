@@ -1,0 +1,71 @@
+    <form id="mineralForm" novalidate>
+        <fieldset>
+            <label for="minId">Id (formato LLDDDDLL)</label>
+            <input id="minId" name="id" type="text" required pattern="[A-Za-z]{2}\d{4}[A-Za-z]{2}"
+                         placeholder="Ej: AB1234CD" maxlength="8" title="2 letras, 4 números, 2 letras (ej: AB1234CD)">
+            <div class="hint">Dos letras, cuatro números y dos letras. No usar espacios.</div>
+
+            <label for="nombre">Nombre</label>
+            <input id="nombre" name="nombre" type="text" required maxlength="100" placeholder="Nombre del mineral">
+
+            <label>Grupo / Origen</label>
+            <div class="row">
+                <label class="inline"><input type="radio" name="grupo" value="ígneas" required> ígneas</label>
+                <label class="inline"><input type="radio" name="grupo" value="metamórficas"> metamórficas</label>
+                <label class="inline"><input type="radio" name="grupo" value="sedimentarias"> sedimentarias</label>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <label for="dureza">Dureza (Escala de Mohs) — 1 a 10</label>
+                    <input id="dureza" name="dureza" type="number" min="1" max="10" step="1" required value="1">
+                </div>
+
+                <div class="col">
+                    <label for="tamCristales">Tamaño de cristales (0 a 10)</label>
+                    <input id="tamCristales" name="tam_cristales" type="number" min="0" max="10" step="0.1" required value="0">
+                </div>
+            </div>
+
+            <label>Tamaño de grano</label>
+            <div>
+                <label class="inline"><input type="radio" name="tam_grano" value="muy grueso" required> Grano muy grueso: &gt; 30 mm</label>
+                <label class="inline"><input type="radio" name="tam_grano" value="grueso"> Grano grueso: 5 a 30 mm</label>
+                <label class="inline"><input type="radio" name="tam_grano" value="medio"> Grano medio: 2 a 5 mm</label>
+                <label class="inline"><input type="radio" name="tam_grano" value="fino"> Grano fino: &lt; 2 mm</label>
+            </div>
+
+            <label for="clasificacion">Clasificación</label>
+            <select id="clasificacion" name="clasificacion" required>
+                <option value="">-- seleccionar --</option>
+                <option value="construccion">Rocas de construcción</option>
+                <option value="ornamentales">Rocas ornamentales</option>
+                <option value="utensilios">Rocas de uso en utensilios</option>
+                <option value="piedras_machacadas">Piedras machacadas (áridos, agregados, ripios)</option>
+            </select>
+
+            <label for="tempFormacion">Temperatura de formación (K)</label>
+            <input id="tempFormacion" name="temperatura" type="number" min="-100" max="100" step="0.1" required value="0">
+            <div class="hint">Rango permitido: -100 a 100 (según especificación).</div>
+
+            <label for="estructura">Estructura</label>
+            <textarea id="estructura" name="estructura" rows="3" placeholder="Texto libre sobre la estructura"></textarea>
+
+            <label for="forma">Forma de los granos</label>
+            <textarea id="forma" name="forma" rows="2" placeholder="Texto libre sobre la forma de los granos"></textarea>
+
+            <label>Textura</label>
+            <div>
+                <label class="inline"><input type="radio" name="textura" value="vítrea" required> Vítrea</label>
+                <label class="inline"><input type="radio" name="textura" value="afanítica"> Afanítica</label>
+                <label class="inline"><input type="radio" name="textura" value="fanerítica"> Fanerítica</label>
+            </div>
+
+        </fieldset>
+
+        <div style="margin-top:14px">
+            <button type="submit">Guardar mineral</button>
+        </div>
+
+        <div id="output" style="margin-top:16px"></div>
+    </form>
