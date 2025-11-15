@@ -1,13 +1,6 @@
 // main.ts
 // Archivo principal de la aplicación
-/*
-import { Astronauta } from './astronauta';
-import { ValidadorIgneas, ValidadorMetamorficas, ValidadorSedimentarias } from './validadores';
-import { EntradaExtendida, EntradaReducida, FormatoEuropeo, FormatoAmericano } from './sistemas';
-import { Mision } from './mision';
-import { Mineral, TipoRoca, TamanoGrano, Textura, Clasificacion } from './types';
-import { IValidable, ISalida, IEntrada } from './interfaces';
-*/
+
 import { Astronauta } from './astronauta.js';
 import { ValidadorIgneas, ValidadorMetamorficas, ValidadorSedimentarias } from './validadores.js';
 import { EntradaExtendida, EntradaReducida, FormatoEuropeo, FormatoAmericano } from './sistemas.js';
@@ -54,12 +47,22 @@ function mostrarInfoAstronauta(): void {
  */
 function configurarEventos(): void {
     // Eventos de modo de formulario
-    document.getElementById('btnExtendido')?.addEventListener('click', () => cambiarModoFormulario('extendido'));
-    document.getElementById('btnReducido')?.addEventListener('click', () => cambiarModoFormulario('reducido'));
+    const radiosModo = document.querySelectorAll<HTMLInputElement>('input[name="modoFormulario"]');
+    for (const radio of Array.from(radiosModo)) {
+        radio.addEventListener('change', (e: Event) => {
+            const valor = (e.target as HTMLInputElement).value;
+            cambiarModoFormulario(valor);
+        });
+    }
 
     // Eventos de formato de salida
-    document.getElementById('btnEuropeo')?.addEventListener('click', () => cambiarFormatoSalida('europeo'));
-    document.getElementById('btnAmericano')?.addEventListener('click', () => cambiarFormatoSalida('americano'));
+    const radiosFormato = document.querySelectorAll<HTMLInputElement>('input[name="formatoSalida"]');
+    for (const radio of Array.from(radiosFormato)) {
+        radio.addEventListener('change', (e: Event) => {
+            const valor = (e.target as HTMLInputElement).value;
+            cambiarFormatoSalida(valor);
+        });
+    }
 
     // Evento de cambio de criterio
     document.getElementById('criterioSelect')?.addEventListener('change', (e) => {
@@ -76,9 +79,6 @@ function cambiarModoFormulario(modo: string): void {
     sistemaEntrada = modo === 'extendido' ? new EntradaExtendida() : new EntradaReducida();
     mision.setEntrada(sistemaEntrada);
 
-    document.getElementById('btnExtendido')?.classList.toggle('active', modo === 'extendido');
-    document.getElementById('btnReducido')?.classList.toggle('active', modo === 'reducido');
-    
     const textoModo = document.getElementById('modoFormularioTexto');
     if (textoModo) {
         textoModo.textContent = modo === 'extendido' ? 'Modo Extendido' : 'Modo Reducido';
@@ -94,9 +94,6 @@ function cambiarFormatoSalida(formato: string): void {
     formatoSalida = formato;
     sistemaSalida = formato === 'europeo' ? new FormatoEuropeo() : new FormatoAmericano();
     mision.setSalida(sistemaSalida);
-
-    document.getElementById('btnEuropeo')?.classList.toggle('active', formato === 'europeo');
-    document.getElementById('btnAmericano')?.classList.toggle('active', formato === 'americano');
     
     const textoFormato = document.getElementById('formatoSalidaTexto');
     if (textoFormato) {

@@ -1,0 +1,157 @@
+classDiagram
+    %% Interfaces
+    class IPilotable {
+        <<interface>>
+        +dameIdentificador() string
+        +dameNombreCompleto() string
+        +dameEdad() number
+    }
+    
+    class IValidable {
+        <<interface>>
+        +isValid(mineral: Mineral) boolean
+        +getNombre() string
+    }
+    
+    class IEntrada {
+        <<interface>>
+        +muestra() string
+    }
+    
+    class ISalida {
+        <<interface>>
+        +mostrar(mineral: Mineral) string
+    }
+    
+    class IMisionable {
+        <<interface>>
+        +Analiza(mineral: Mineral) Object
+        +muestra(mineral: Mineral) string
+    }
+    
+    %% Enums y Types
+    class TipoRoca {
+        <<enumeration>>
+        Ignea
+        Metamorfica
+        Sedimentaria
+    }
+    
+    class TamanoGrano {
+        <<enumeration>>
+        MuyGrueso
+        Grueso
+        Medio
+        Fino
+    }
+    
+    class Textura {
+        <<enumeration>>
+        Vitrea
+        Afanitica
+        Faneritica
+    }
+    
+    class Clasificacion {
+        <<enumeration>>
+        Construccion
+        Ornamental
+        Utensilios
+        Machacadas
+    }
+    
+    class Mineral {
+        <<interface>>
+        +id: string
+        +nombre: string
+        +grupo: TipoRoca
+        +dureza: number
+        +tamanoGrano: TamanoGrano
+        +clasificacion: Clasificacion
+        +tamanoCristales: number
+        +temperaturaFormacion: number
+        +estructura: string
+        +formaGranos: string
+        +textura: Textura
+    }
+    
+    %% Clases Implementadas
+    class Astronauta {
+        -identificador: string
+        -nombreCompleto: string
+        -edad: number
+        +dameIdentificador() string
+        +dameNombreCompleto() string
+        +dameEdad() number
+    }
+    
+    class ValidadorIgneas {
+        +getNombre() string
+        +isValid(mineral: Mineral) boolean
+    }
+    
+    class ValidadorMetamorficas {
+        +getNombre() string
+        +isValid(mineral: Mineral) boolean
+    }
+    
+    class ValidadorSedimentarias {
+        +getNombre() string
+        +isValid(mineral: Mineral) boolean
+    }
+    
+    class EntradaExtendida {
+        +muestra() string
+    }
+    
+    class EntradaReducida {
+        +muestra() string
+    }
+    
+    class FormatoEuropeo {
+        +mostrar(mineral: Mineral) string
+    }
+    
+    class FormatoAmericano {
+        +mostrar(mineral: Mineral) string
+    }
+    
+    class Mision {
+        -entrada: IEntrada
+        -salida: ISalida
+        -criterio: IValidable
+        -piloto: IPilotable
+        +Analiza(mineral: Mineral) Object
+        +muestra(mineral: Mineral) string
+        +getPiloto() IPilotable
+        +getCriterio() IValidable
+        +setCriterio(criterio: IValidable) void
+        +setSalida(salida: ISalida) void
+        +setEntrada(entrada: IEntrada) void
+    }
+    
+    %% Relaciones de Implementación
+    Astronauta ..|> IPilotable
+    ValidadorIgneas ..|> IValidable
+    ValidadorMetamorficas ..|> IValidable
+    ValidadorSedimentarias ..|> IValidable
+    EntradaExtendida ..|> IEntrada
+    EntradaReducida ..|> IEntrada
+    FormatoEuropeo ..|> ISalida
+    FormatoAmericano ..|> ISalida
+    Mision ..|> IMisionable
+    
+    %% Relaciones de Composición
+    Mision *-- IEntrada : contiene
+    Mision *-- ISalida : contiene
+    Mision *-- IValidable : contiene
+    Mision *-- IPilotable : contiene
+    
+    %% Relaciones de Uso/Dependencia
+    IValidable ..> Mineral : usa
+    ISalida ..> Mineral : usa
+    IMisionable ..> Mineral : usa
+    Mineral ..> TipoRoca : usa
+    Mineral ..> TamanoGrano : usa
+    Mineral ..> Textura : usa
+    Mineral ..> Clasificacion : usa

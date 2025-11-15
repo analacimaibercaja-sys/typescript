@@ -13,7 +13,6 @@ export class Mision {
      * @returns Objeto con validez y mensaje
      */
     Analiza(mineral) {
-        //const esValido = this.criterio.esValid(mineral);
         const esValido = this.criterio.isValid(mineral);
         const mensaje = esValido
             ? `El mineral ${mineral.nombre} cumple con el ${this.criterio.getNombre()}`
