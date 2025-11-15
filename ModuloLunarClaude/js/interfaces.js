@@ -1,3 +1,3 @@
-"use strict";
 // interfaces.ts
-Object.defineProperty(exports, "__esModule", { value: true });
+export {};
+//# sourceMappingURL=interfaces.js.map

@@ -1,8 +1,8 @@
 // sistemas.ts
 // Implementación de sistemas de entrada y salida de datos
 
-import { IEntrada, ISalida } from './interfaces';
-import { Mineral } from './types';
+import { IEntrada, ISalida } from './interfaces.js';
+import { Mineral } from './types.js';
 
 // ==================== SISTEMAS DE ENTRADA ====================
 

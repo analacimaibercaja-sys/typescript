@@ -1,8 +1,8 @@
 // validadores.ts
 // Implementación de los criterios de validación de minerales
 
-import { IValidable } from './interfaces';
-import { Mineral, TipoRoca, TamanoGrano, Textura } from './types';
+import { IValidable } from './interfaces.js';
+import { Mineral, TipoRoca, TamanoGrano, Textura } from './types.js';
 
 export class ValidadorIgneas implements IValidable {
     getNombre(): string {

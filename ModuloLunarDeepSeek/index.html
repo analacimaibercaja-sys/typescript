@@ -4,56 +4,92 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Módulo Lunar - Agmunsen</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css">
 </head>
-<body>
-    <div class="container">
-        <header>
-            <h1>Módulo Lunar</h1>
-            <p class="astronauta-info" id="astronauta-info"></p>
+<body class="bg-light">
+    <div class="container py-4">
+        <!-- Header -->
+        <header class="text-center mb-5">
+            <div class="bg-primary text-white p-4 rounded-3 shadow">
+                <h1 class="display-4 fw-bold mb-3">
+                    <i class="bi bi-moon-stars me-3"></i>Módulo Lunar
+                </h1>
+                <p class="lead mb-0 astronauta-info" id="astronauta-info"></p>
+            </div>
         </header>
 
-        <div class="controles">
-            <div class="control-grupo">
-                <label for="tipo-formulario">Tipo de Formulario:</label>
-                <select id="tipo-formulario">
-                    <option value="extendida">Extendida (con labels)</option>
-                    <option value="reducida">Reducida (placeholders)</option>
-                </select>
+        <!-- Controles -->
+        <div class="row g-3 mb-4">
+            <div class="col-md-4">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body">
+                        <label for="tipo-formulario" class="form-label fw-semibold">Tipo de Formulario:</label>
+                        <select id="tipo-formulario" class="form-select">
+                            <option value="extendida">Extendida (con labels)</option>
+                            <option value="reducida">Reducida (placeholders)</option>
+                        </select>
+                    </div>
+                </div>
             </div>
-
-            <div class="control-grupo">
-                <label for="validador">Criterio de Validación:</label>
-                <select id="validador">
-                    <option value="igneo">Ígneo</option>
-                    <option value="metamorfico">Metamórfico</option>
-                    <option value="sedimentario">Sedimentario</option>
-                </select>
+            <div class="col-md-4">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body">
+                        <label for="validador" class="form-label fw-semibold">Criterio de Validación:</label>
+                        <select id="validador" class="form-select">
+                            <option value="igneo">Ígneo</option>
+                            <option value="metamorfico">Metamórfico</option>
+                            <option value="sedimentario">Sedimentario</option>
+                        </select>
+                    </div>
+                </div>
             </div>
-
-            <div class="control-grupo">
-                <label for="formato-salida">Formato de Salida:</label>
-                <select id="formato-salida">
-                    <option value="europeo">Europeo (Español/°C)</option>
-                    <option value="americano">Americano (English/°F)</option>
-                </select>
+            <div class="col-md-4">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body">
+                        <label for="formato-salida" class="form-label fw-semibold">Formato de Salida:</label>
+                        <select id="formato-salida" class="form-select">
+                            <option value="europeo">Europeo (Español/°C)</option>
+                            <option value="americano">Americano (English/°F)</option>
+                        </select>
+                    </div>
+                </div>
             </div>
         </div>
 
         <!-- Formulario Dinámico -->
-        <div class="formulario">
-            <div id="formulario-container">
-                <!-- Aquí se renderizará el formulario dinámicamente desde TypeScript -->
+        <div class="card shadow mb-4">
+            <div class="card-header bg-primary text-white">
+                <h3 class="card-title mb-0">
+                    <i class="bi bi-clipboard-data me-2"></i>Datos del Mineral
+                </h3>
+            </div>
+            <div class="card-body">
+                <div id="formulario-container">
+                    <!-- Aquí se renderizará el formulario dinámicamente -->
+                </div>
             </div>
         </div>
 
         <!-- Resultado -->
-        <div id="resultado" class="resultado">
-            <div id="validacion-display" class="validacion"></div>
-            <div id="info-roca" class="info-roca"></div>
+        <div id="resultado" class="card shadow" style="display: none;">
+            <div class="card-header">
+                <h3 class="card-title mb-0">
+                    <i class="bi bi-graph-up me-2"></i>Resultado del Análisis
+                </h3>
+            </div>
+            <div class="card-body">
+                <div id="validacion-display" class="text-center mb-4"></div>
+                <div id="info-roca" class="info-roca"></div>
+            </div>
         </div>
     </div>
 
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script type="module" src="js/main.js"></script>
 </body>
 </html>

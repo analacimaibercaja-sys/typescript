@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Módulo Lunar - Agmunsen</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Módulo Lunar</h1>
+            <p class="astronauta-info" id="astronauta-info"></p>
+        </header>
+
+        <div class="controles">
+            <div class="control-grupo">
+                <label for="tipo-formulario">Tipo de Formulario:</label>
+                <select id="tipo-formulario">
+                    <option value="extendida">Extendida (con labels)</option>
+                    <option value="reducida">Reducida (placeholders)</option>
+                </select>
+            </div>
+
+            <div class="control-grupo">
+                <label for="validador">Criterio de Validación:</label>
+                <select id="validador">
+                    <option value="igneo">Ígneo</option>
+                    <option value="metamorfico">Metamórfico</option>
+                    <option value="sedimentario">Sedimentario</option>
+                </select>
+            </div>
+
+            <div class="control-grupo">
+                <label for="formato-salida">Formato de Salida:</label>
+                <select id="formato-salida">
+                    <option value="europeo">Europeo (Español/°C)</option>
+                    <option value="americano">Americano (English/°F)</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Formulario Dinámico -->
+        <div class="formulario">
+            <div id="formulario-container">
+                <!-- Aquí se renderizará el formulario dinámicamente desde TypeScript -->
+            </div>
+        </div>
+
+        <!-- Resultado -->
+        <div id="resultado" class="resultado">
+            <div id="validacion-display" class="validacion"></div>
+            <div id="info-roca" class="info-roca"></div>
+        </div>
+    </div>
+
+    <script type="module" src="js/main.js"></script>
+</body>
+</html> 

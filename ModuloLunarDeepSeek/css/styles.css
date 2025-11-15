@@ -1,204 +1,89 @@
-:root{
-  --color-primary-font: #333
-}
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(135deg, #1e293b 0%, #581c87 50%, #1e293b 100%);
-  min-height: 100vh;
-  padding: 20px;
-  color: var(--color-primary-font)
+:root {
+    --primary-color: #0d6efd;
+    --success-color: #198754;
+    --danger-color: #dc3545;
+    --warning-color: #ffc107;
+    --dark-color: #212529;
 }
 
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-header {
-  text-align: center;
-  color: white;
-  margin-bottom: 30px;
-}
-
-h1 {
-  font-size: 2.5rem;
-  margin-bottom: 10px;
-}
-
+/* Estilos personalizados */
 .astronauta-info {
-  color: #c084fc;
-  font-size: 1.1rem;
+    font-size: 1.1rem;
+    opacity: 0.9;
 }
 
-.controles {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-  margin-bottom: 30px;
+/* Mejoras para los formularios */
+.formulario-dinamico .campo {
+    margin-bottom: 1rem;
 }
 
-.control-grupo {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  padding: 20px;
-  border-radius: 10px;
-}
-
-.control-grupo label {
-  display: block;
-  color: white;
-  font-weight: 600;
-  margin-bottom: 8px;
-  font-size: 0.9rem;
-}
-
-.control-grupo select {
-  width: 100%;
-  padding: 10px;
-  border: 2px solid #ddd;
-  border-radius: 5px;
-  font-size: 1rem;
-}
-
-.formulario {
-  background: white;
-  padding: 30px;
-  border-radius: 10px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-  margin-bottom: 30px;
-}
-
-.grid-2col {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 20px;
-}
-
-.campo {
-  margin-bottom: 15px;
-}
-
-.campo label {
-  display: block;
-  font-weight: 600;
-  margin-bottom: 5px;
-  color: #374151;
-}
-
-.campo input,
-.campo select {
-  width: 100%;
-  padding: 10px;
-  border: 2px solid #d1d5db;
-  border-radius: 5px;
-  font-size: 1rem;
-  transition: border-color 0.3s;
-}
-
-.campo input:focus,
-.campo select:focus {
-  outline: none;
-  border-color: #2563eb;
-}
-
-.btn-submit {
-  width: 100%;
-  padding: 12px;
-  /*background: #2563eb;*/
-  color: white;
-  border: none;
-  border-radius: 5px;
-  font-size: 1.1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background 0.3s;
-  margin-top: 10px;
-}
-/*
-.btn-submit:hover {
-  background:  #1d4ed8;
-}*/
-
-.resultado {
-  background: white;
-  padding: 30px;
-  border-radius: 10px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-  display: none;
-}
-
-.resultado.visible {
-  display: block;
-}
-
+/* Resultados de validación */
 .validacion {
-  text-align: center;
-  margin-bottom: 30px;
-  padding: 20px;
-  border-radius: 10px;
+    padding: 2rem;
+    border-radius: 0.5rem;
+    margin-bottom: 1.5rem;
 }
 
 .validacion.valida {
-  background: #d1fae5;
+    background-color: var(--success-color);
+    color: white;
 }
 
 .validacion.invalida {
-  background: #fee2e2;
+    background-color: var(--danger-color);
+    color: white;
 }
 
 .emoji {
-  font-size: 4rem;
-  margin-bottom: 10px;
+    font-size: 3rem;
+    margin-bottom: 1rem;
 }
 
-.validacion h2 {
-  font-size: 1.5rem;
-  margin: 0;
-}
-
-.validacion.valida h2 {
-  color: #059669;
-}
-
-.validacion.invalida h2 {
-  color: #dc2626;
-}
-
-.info-roca {
-  border-top: 2px solid #e5e7eb;
-  padding-top: 20px;
-}
-
-.info-roca h3 {
-  font-size: 1.3rem;
-  margin-bottom: 20px;
-  color: #1f2937;
-}
-
-.info-roca p {
-  margin-bottom: 10px;
-  font-size: 1rem;
-  line-height: 1.6;
+/* Información del mineral */
+.info-roca .row {
+    margin-bottom: 0.5rem;
 }
 
 .info-roca strong {
-  color: #4b5563;
-  min-width: 180px;
-  display: inline-block;
+    color: var(--dark-color);
 }
 
-@media (max-width: 768px) {
-  .controles {
-    grid-template-columns: 1fr;
-  }
+/* Animaciones suaves */
+.card {
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
 
-  .grid-2col {
-    grid-template-columns: 1fr;
-  }
+.card:hover {
+    transform: translateY(-2px);
+}
+
+/* Responsive improvements */
+@media (max-width: 768px) {
+    .display-4 {
+        font-size: 2rem;
+    }
+    
+    .card-body {
+        padding: 1rem;
+    }
+}
+
+/* Custom button styles */
+.btn-primary {
+    background: linear-gradient(135deg, var(--primary-color), #0b5ed7);
+    border: none;
+    padding: 0.75rem 1.5rem;
+    font-weight: 600;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(135deg, #0b5ed7, #0a58ca);
+    transform: translateY(-1px);
+}
+
+/* Form controls focus states */
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
 }

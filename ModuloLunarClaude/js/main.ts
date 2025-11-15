@@ -1,13 +1,19 @@
 // main.ts
 // Archivo principal de la aplicación
-
+/*
 import { Astronauta } from './astronauta';
 import { ValidadorIgneas, ValidadorMetamorficas, ValidadorSedimentarias } from './validadores';
 import { EntradaExtendida, EntradaReducida, FormatoEuropeo, FormatoAmericano } from './sistemas';
 import { Mision } from './mision';
 import { Mineral, TipoRoca, TamanoGrano, Textura, Clasificacion } from './types';
 import { IValidable, ISalida, IEntrada } from './interfaces';
-
+*/
+import { Astronauta } from './astronauta.js';
+import { ValidadorIgneas, ValidadorMetamorficas, ValidadorSedimentarias } from './validadores.js';
+import { EntradaExtendida, EntradaReducida, FormatoEuropeo, FormatoAmericano } from './sistemas.js';
+import { Mision } from './mision.js';
+import { Mineral, TipoRoca, TamanoGrano, Textura, Clasificacion } from './types.js';
+import { IValidable, ISalida, IEntrada } from './interfaces.js';
 // Estado global de la aplicación
 let astronauta: Astronauta;
 let modoFormulario: string = "extendido";

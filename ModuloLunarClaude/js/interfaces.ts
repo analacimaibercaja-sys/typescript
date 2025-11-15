@@ -1,6 +1,6 @@
 // interfaces.ts
 
-import { Mineral } from './types';
+import { Mineral } from './types.js';
 
 export interface IPilotable {
     dameIdentificador(): string;

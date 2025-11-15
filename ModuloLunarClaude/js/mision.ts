@@ -1,7 +1,7 @@
 // mision.ts
 // Clase Misión que coordina entrada, salida, validación y piloto
 
-import { IMisionable, IEntrada, ISalida, IValidable, IPilotable } from './interfaces';
+import { IMisionable, IEntrada, ISalida, IValidable, IPilotable } from './interfaces.js';
 import { Mineral } from './types';
 
 export class Mision implements IMisionable {
