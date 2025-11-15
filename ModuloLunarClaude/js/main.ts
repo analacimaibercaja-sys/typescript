@@ -215,47 +215,46 @@ function renderizarFormulario(): void {
 }
 
 function generarHTMLFormulario(isExtendido: boolean): string {
-    const labelId = isExtendido ? '<label class="form-label-extended">ID (LLDDDDLL)</label>' : '';
-    const labelNombre = isExtendido ? '<label class="form-label-extended">Nombre</label>' : '';
-    const labelDureza = isExtendido ? '<label class="form-label-extended">Dureza (1-10)</label>' : '';
-    const labelCristales = isExtendido ? '<label class="form-label-extended">Tamaño de cristales (0-10)</label>' : '';
-    const labelClasificacion = isExtendido ? '<label class="form-label-extended">Clasificación</label>' : '';
-    const labelTemperatura = isExtendido ? '<label class="form-label-extended">Temperatura de formación (K)</label>' : '';
-    const labelEstructura = isExtendido ? '<label class="form-label-extended">Estructura</label>' : '';
-    const labelForma = isExtendido ? '<label class="form-label-extended">Forma de los granos</label>' : '';
+    const labelId = isExtendido ? '<label class="form-label fw-semibold" for="inputId">ID (LLDDDDLL)</label>' : '';
+    const labelNombre = isExtendido ? '<label class="form-label fw-semibold" for="inputNombre">Nombre</label>' : '';
+    const labelDureza = isExtendido ? '<label class="form-label fw-semibold" for="inputDureza">Dureza (1-10)</label>' : '';
+    const labelCristales = isExtendido ? '<label class="form-label fw-semibold" for="inputCristales">Tamaño de cristales (0-10)</label>' : '';
+    const labelClasificacion = isExtendido ? '<label class="form-label fw-semibold" for="inputClasificacion">Clasificación</label>' : '';
+    const labelTemperatura = isExtendido ? '<label class="form-label fw-semibold" for="inputTemperatura">Temperatura de formación (K)</label>' : '';
+    const labelEstructura = isExtendido ? '<label class="form-label fw-semibold" for="inputEstructura">Estructura</label>' : '';
+    const labelForma = isExtendido ? '<label class="form-label fw-semibold" for="inputForma">Forma de los granos</label>' : '';
 
     return `
         <div class="row">
             <div class="col-md-6 mb-3">
                 ${labelId}
-                <input type="text" class="form-control" id="inputId" maxlength="8" 
+                <input type="text" class="form-control" id="inputId" maxlength="8" name="inputId"
                        placeholder="${!isExtendido ? 'ID (formato LLDDDDLL) - Ej: AB1234CD' : 'Ej: AB1234CD'}" required>
-                <div class="hint-text mt-1">2 letras, 4 números, 2 letras</div>
             </div>
             <div class="col-md-6 mb-3">
                 ${labelNombre}
-                <input type="text" class="form-control" id="inputNombre" 
+                <input type="text" class="form-control" id="inputNombre" name="inputNombre" 
                        placeholder="${!isExtendido ? 'Nombre del mineral' : ''}" required>
             </div>
         </div>
 
-        <div class="mb-3">
-            <label class="form-label-extended">Grupo / Origen</label>
-            <div class="d-flex gap-3">
+        <fieldset class="mb-3">
+            <legend class="form-label fw-semibold">Grupo / Origen</legend>
+            <div class="d-flex gap-3 flex-wrap">
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="grupo" value="${TipoRoca.Ignea}" id="grupoIgnea">
+                    <input class="form-check-input" type="radio" name="grupo" value="${TipoRoca.Ignea}" id="grupoIgnea" required>
                     <label class="form-check-label" for="grupoIgnea">${TipoRoca.Ignea}</label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="grupo" value="${TipoRoca.Metamorfica}" id="grupoMeta">
+                    <input class="form-check-input" type="radio" name="grupo" value="${TipoRoca.Metamorfica}" id="grupoMeta" required>
                     <label class="form-check-label" for="grupoMeta">${TipoRoca.Metamorfica}</label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="grupo" value="${TipoRoca.Sedimentaria}" id="grupoSedi">
+                    <input class="form-check-input" type="radio" name="grupo" value="${TipoRoca.Sedimentaria}" id="grupoSedi" required>
                     <label class="form-check-label" for="grupoSedi">${TipoRoca.Sedimentaria}</label>
                 </div>
             </div>
-        </div>
+        </fieldset>
 
         <div class="row">
             <div class="col-md-6 mb-3">
@@ -270,35 +269,35 @@ function generarHTMLFormulario(isExtendido: boolean): string {
             </div>
         </div>
 
-        <div class="mb-3">
-            <label class="form-label-extended">Tamaño de grano</label>
+        <fieldset class="mb-3">
+            <legend class="form-label fw-semibold">Tamaño de grano</legend>
             <div class="row">
                 <div class="col-6 col-md-3">
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="tamanoGrano" value="${TamanoGrano.MuyGrueso}" id="granoMuyGrueso">
+                        <input class="form-check-input" type="radio" name="tamanoGrano" value="${TamanoGrano.MuyGrueso}" id="granoMuyGrueso" required>
                         <label class="form-check-label small" for="granoMuyGrueso">${TamanoGrano.MuyGrueso}</label>
                     </div>
                 </div>
                 <div class="col-6 col-md-3">
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="tamanoGrano" value="${TamanoGrano.Grueso}" id="granoGrueso">
+                        <input class="form-check-input" type="radio" name="tamanoGrano" value="${TamanoGrano.Grueso}" id="granoGrueso" required>
                         <label class="form-check-label small" for="granoGrueso">${TamanoGrano.Grueso}</label>
                     </div>
                 </div>
                 <div class="col-6 col-md-3">
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="tamanoGrano" value="${TamanoGrano.Medio}" id="granoMedio">
+                        <input class="form-check-input" type="radio" name="tamanoGrano" value="${TamanoGrano.Medio}" id="granoMedio" required>
                         <label class="form-check-label small" for="granoMedio">${TamanoGrano.Medio}</label>
                     </div>
                 </div>
                 <div class="col-6 col-md-3">
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="tamanoGrano" value="${TamanoGrano.Fino}" id="granoFino">
+                        <input class="form-check-input" type="radio" name="tamanoGrano" value="${TamanoGrano.Fino}" id="granoFino" required>
                         <label class="form-check-label small" for="granoFino">${TamanoGrano.Fino}</label>
                     </div>
                 </div>
             </div>
-        </div>
+        </fieldset>
 
         <div class="row">
             <div class="col-md-6 mb-3">
@@ -315,46 +314,45 @@ function generarHTMLFormulario(isExtendido: boolean): string {
                 ${labelTemperatura}
                 <input type="number" class="form-control" id="inputTemperatura" min="-100" max="100" step="0.1" value="0"
                        placeholder="${!isExtendido ? 'Temperatura (-100 a 100 K)' : ''}" required>
-                <div class="hint-text mt-1">Rango: -100 a 100 K</div>
+                <div class="form-text">Rango: -100 a 100 K</div>
             </div>
         </div>
 
         <div class="mb-3">
             ${labelEstructura}
             <textarea class="form-control" id="inputEstructura" rows="2"
-                      placeholder="${!isExtendido ? 'Estructura - Texto libre' : 'Texto libre sobre la estructura'}"></textarea>
+                      placeholder="${!isExtendido ? 'Estructura - Texto libre' : 'Texto libre sobre la estructura'}" required></textarea>
         </div>
 
         <div class="mb-3">
             ${labelForma}
             <textarea class="form-control" id="inputForma" rows="2"
-                      placeholder="${!isExtendido ? 'Forma de los granos - Texto libre' : 'Texto libre sobre la forma de los granos'}"></textarea>
+                      placeholder="${!isExtendido ? 'Forma de los granos - Texto libre' : 'Texto libre sobre la forma de los granos'}" required></textarea>
         </div>
 
-        <div class="mb-3">
-            <label class="form-label-extended">Textura</label>
-            <div class="d-flex gap-3">
+        <fieldset class="mb-3">
+            <legend class="form-label fw-semibold">Textura</legend>
+            <div class="d-flex gap-3 flex-wrap">
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="textura" value="${Textura.Vitrea}" id="texturaVitrea">
+                    <input class="form-check-input" type="radio" name="textura" value="${Textura.Vitrea}" id="texturaVitrea" required>
                     <label class="form-check-label" for="texturaVitrea">${Textura.Vitrea}</label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="textura" value="${Textura.Afanitica}" id="texturaAfanitica">
+                    <input class="form-check-input" type="radio" name="textura" value="${Textura.Afanitica}" id="texturaAfanitica" required>
                     <label class="form-check-label" for="texturaAfanitica">${Textura.Afanitica}</label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="textura" value="${Textura.Faneritica}" id="texturaFaneritica">
+                    <input class="form-check-input" type="radio" name="textura" value="${Textura.Faneritica}" id="texturaFaneritica" required>
                     <label class="form-check-label" for="texturaFaneritica">${Textura.Faneritica}</label>
                 </div>
             </div>
-        </div>
+        </fieldset>
 
         <div class="d-flex gap-2">
-            <button type="button" class="btn btn-primary" id="btnAnalizar">Analizar Mineral</button>
-            <button type="button" class="btn btn-secondary" id="btnLimpiar">Limpiar</button>
+            <button type="button" class="btn btn-primary flex-fill" id="btnAnalizar">Analizar Mineral</button>
+            <button type="button" class="btn btn-outline-secondary" id="btnLimpiar">Limpiar</button>
         </div>
     `;
 }
-
 // Inicializar cuando el DOM esté listo
 document.addEventListener('DOMContentLoaded', inicializarApp);
