@@ -14,6 +14,9 @@ let sistemaEntrada: IEntrada;
 let sistemaSalida: ISalida;
 let mision: Mision;
 
+export function capitalize(text: string): string {
+    return text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();
+}
 
 function inicializarApp(): void {
     astronauta = new Astronauta("AL31639", "Agmunsen Lacima", 49);
@@ -176,7 +179,7 @@ function mostrarResultado(resultado: { valido: boolean; mensaje: string }, miner
             salidaCard.style.display = 'none';
         }
     }
-    // Hacer scroll suave al resultado
+
     setTimeout(() => {
         resultadoCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }, 100);
@@ -194,12 +197,7 @@ function limpiarFormulario(): void {
     renderizarFormulario();
     ocultarResultados();
 
-        // Devolver la card de salida a su posición original (al final)
-    const salidaCard = document.getElementById('salidaCard');
-    const contenedorPrincipal = salidaCard?.parentNode;
-    if (salidaCard && contenedorPrincipal) {
-        contenedorPrincipal.appendChild(salidaCard);
-    }
+    globalThis.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 function renderizarFormulario(): void {
@@ -215,6 +213,11 @@ function renderizarFormulario(): void {
 }
 
 function generarHTMLFormulario(isExtendido: boolean): string {
+    // Función para capitalizar la primera letra
+    const capitalize = (text: string): string => {
+        return text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();
+    };
+
     const labelId = isExtendido ? '<label class="form-label fw-semibold" for="inputId">ID (LLDDDDLL)</label>' : '';
     const labelNombre = isExtendido ? '<label class="form-label fw-semibold" for="inputNombre">Nombre</label>' : '';
     const labelDureza = isExtendido ? '<label class="form-label fw-semibold" for="inputDureza">Dureza (1-10)</label>' : '';
@@ -243,15 +246,15 @@ function generarHTMLFormulario(isExtendido: boolean): string {
             <div class="d-flex gap-3 flex-wrap">
                 <div class="form-check">
                     <input class="form-check-input" type="radio" name="grupo" value="${TipoRoca.Ignea}" id="grupoIgnea" required>
-                    <label class="form-check-label" for="grupoIgnea">${TipoRoca.Ignea}</label>
+                    <label class="form-check-label" for="grupoIgnea">${capitalize(TipoRoca.Ignea)}</label>
                 </div>
                 <div class="form-check">
                     <input class="form-check-input" type="radio" name="grupo" value="${TipoRoca.Metamorfica}" id="grupoMeta" required>
-                    <label class="form-check-label" for="grupoMeta">${TipoRoca.Metamorfica}</label>
+                    <label class="form-check-label" for="grupoMeta">${capitalize(TipoRoca.Metamorfica)}</label>
                 </div>
                 <div class="form-check">
                     <input class="form-check-input" type="radio" name="grupo" value="${TipoRoca.Sedimentaria}" id="grupoSedi" required>
-                    <label class="form-check-label" for="grupoSedi">${TipoRoca.Sedimentaria}</label>
+                    <label class="form-check-label" for="grupoSedi">${capitalize(TipoRoca.Sedimentaria)}</label>
                 </div>
             </div>
         </fieldset>
@@ -275,25 +278,25 @@ function generarHTMLFormulario(isExtendido: boolean): string {
                 <div class="col-6 col-md-3">
                     <div class="form-check">
                         <input class="form-check-input" type="radio" name="tamanoGrano" value="${TamanoGrano.MuyGrueso}" id="granoMuyGrueso" required>
-                        <label class="form-check-label small" for="granoMuyGrueso">${TamanoGrano.MuyGrueso}</label>
+                        <label class="form-check-label small" for="granoMuyGrueso">${capitalize(TamanoGrano.MuyGrueso)}</label>
                     </div>
                 </div>
                 <div class="col-6 col-md-3">
                     <div class="form-check">
                         <input class="form-check-input" type="radio" name="tamanoGrano" value="${TamanoGrano.Grueso}" id="granoGrueso" required>
-                        <label class="form-check-label small" for="granoGrueso">${TamanoGrano.Grueso}</label>
+                        <label class="form-check-label small" for="granoGrueso">${capitalize(TamanoGrano.Grueso)}</label>
                     </div>
                 </div>
                 <div class="col-6 col-md-3">
                     <div class="form-check">
                         <input class="form-check-input" type="radio" name="tamanoGrano" value="${TamanoGrano.Medio}" id="granoMedio" required>
-                        <label class="form-check-label small" for="granoMedio">${TamanoGrano.Medio}</label>
+                        <label class="form-check-label small" for="granoMedio">${capitalize(TamanoGrano.Medio)}</label>
                     </div>
                 </div>
                 <div class="col-6 col-md-3">
                     <div class="form-check">
                         <input class="form-check-input" type="radio" name="tamanoGrano" value="${TamanoGrano.Fino}" id="granoFino" required>
-                        <label class="form-check-label small" for="granoFino">${TamanoGrano.Fino}</label>
+                        <label class="form-check-label small" for="granoFino">${capitalize(TamanoGrano.Fino)}</label>
                     </div>
                 </div>
             </div>
@@ -304,10 +307,10 @@ function generarHTMLFormulario(isExtendido: boolean): string {
                 ${labelClasificacion}
                 <select class="form-select" id="inputClasificacion" required>
                     <option value="">-- Seleccionar clasificación --</option>
-                    <option value="${Clasificacion.Construccion}">Construcción</option>
-                    <option value="${Clasificacion.Ornamental}">Ornamental</option>
-                    <option value="${Clasificacion.Utensilios}">Utensilios</option>
-                    <option value="${Clasificacion.Machacadas}">Piedras machacadas</option>
+                    <option value="${Clasificacion.Construccion}">${capitalize(Clasificacion.Construccion)}</option>
+                    <option value="${Clasificacion.Ornamental}">${capitalize(Clasificacion.Ornamental)}</option>
+                    <option value="${Clasificacion.Utensilios}">${capitalize(Clasificacion.Utensilios)}</option>
+                    <option value="${Clasificacion.Machacadas}">${capitalize(Clasificacion.Machacadas)}</option>
                 </select>
             </div>
             <div class="col-md-6 mb-3">
@@ -335,15 +338,15 @@ function generarHTMLFormulario(isExtendido: boolean): string {
             <div class="d-flex gap-3 flex-wrap">
                 <div class="form-check">
                     <input class="form-check-input" type="radio" name="textura" value="${Textura.Vitrea}" id="texturaVitrea" required>
-                    <label class="form-check-label" for="texturaVitrea">${Textura.Vitrea}</label>
+                    <label class="form-check-label" for="texturaVitrea">${capitalize(Textura.Vitrea)}</label>
                 </div>
                 <div class="form-check">
                     <input class="form-check-input" type="radio" name="textura" value="${Textura.Afanitica}" id="texturaAfanitica" required>
-                    <label class="form-check-label" for="texturaAfanitica">${Textura.Afanitica}</label>
+                    <label class="form-check-label" for="texturaAfanitica">${capitalize(Textura.Afanitica)}</label>
                 </div>
                 <div class="form-check">
                     <input class="form-check-input" type="radio" name="textura" value="${Textura.Faneritica}" id="texturaFaneritica" required>
-                    <label class="form-check-label" for="texturaFaneritica">${Textura.Faneritica}</label>
+                    <label class="form-check-label" for="texturaFaneritica">${capitalize(Textura.Faneritica)}</label>
                 </div>
             </div>
         </fieldset>
