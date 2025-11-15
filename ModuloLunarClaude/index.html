@@ -12,9 +12,9 @@
         <!-- Header -->
         <div class="card bg-dark text-white">
             <div class="card-body">
-                <h1 class="h3 mb-2">Módulo Lunar - Análisis de Minerales</h1>
+                <h1 class="h3 mb-2">Módulo Lunar</h1>
                 <div class="alert alert-info mb-0 mt-3">
-                    <strong>Astronauta:</strong> <span id="astronautaInfo"></span>
+                    <strong>Usuario:</strong> <span id="astronautaInfo"></span>
                 </div>
             </div>
         </div>
@@ -24,41 +24,44 @@
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-header bg-primary text-white">
-                        <h5 class="mb-0">Configuración del Sistema</h5>
+                        <h5 class="mb-0">Configuración</h5>
                     </div>
                     <div class="card-body">
                         <div class="mb-3">
-                            <label class="form-label fw-bold" for="modoFormulario">Modo de Entrada:</label>
-                            <div class="btn-group" role="group">
-                                <input type="radio" class="btn-check" name="modoFormulario" id="btnExtendido" value="extendido" checked autocomplete="off">
-                                <label class="btn btn-outline-primary" for="btnExtendido">Extendido</label>
-                                
-                                <input type="radio" class="btn-check" name="modoFormulario" id="btnReducido" value="reducido" autocomplete="off">
-                                <label class="btn btn-outline-primary" for="btnReducido">Reducido</label>
-                            </div>                            
+                            <fieldset>
+                                <legend class="form-label">Modo de formulario:</legend>
+                                <div class="btn-group" aria-label="Selección de modo de formulario">
+                                    <input type="radio" class="btn-check" name="modoFormulario" id="btnExtendido" value="extendido" checked autocomplete="off">
+                                    <label class="btn btn-outline-primary" for="btnExtendido">Extendido</label>
+                                    
+                                    <input type="radio" class="btn-check" name="modoFormulario" id="btnReducido" value="reducido" autocomplete="off">
+                                    <label class="btn btn-outline-primary" for="btnReducido">Reducido</label>
+                                </div>
+                            </fieldset>                          
                         </div>
 
                         <div class="mb-3">
-                            <label class="form-label fw-bold" for="criterioSelect">Criterio de Validación:</label>
-                            <select class="form-select" id="criterioSelect" name="criterioSelect">
-                                <option value="igneas">Criterio Ígneas</option>
-                                <option value="metamorficas">Criterio Metamórficas</option>
-                                <option value="sedimentarias">Criterio Sedimentarias</option>
-                            </select>
-                            <div class="mt-2 small text-muted">
-                                <strong>Actual:</strong> <span id="criterioActual">Criterio Ígneas</span>
-                            </div>
+                            <fieldset>
+                                <legend class="form-label">Criterio de validación:</legend>
+                                <select class="form-select" id="criterioSelect" name="criterioSelect">
+                                    <option value="igneas">Criterio Ígneas</option>
+                                    <option value="metamorficas">Criterio Metamórficas</option>
+                                    <option value="sedimentarias">Criterio Sedimentarias</option>
+                                </select>
+                            </fieldset>
                         </div>
 
                         <div>
-                            <label class="form-label fw-bold" for="formatoSalida">Formato de Salida:</label>
-                            <div class="btn-group" role="group">
-                                <input type="radio" class="btn-check" name="formatoSalida" id="btnEuropeo" value="europeo" checked autocomplete="off">
-                                <label class="btn btn-outline-primary" for="btnEuropeo">Europeo</label>
-                                
-                                <input type="radio" class="btn-check" name="formatoSalida" id="btnAmericano" value="americano" autocomplete="off">
-                                <label class="btn btn-outline-primary" for="btnAmericano">Americano</label>
-                            </div>
+                            <fieldset>
+                                <legend class="form-label">Formato de salida:</legend>
+                                <div class="btn-group" aria-label="Selección de formato de salida">
+                                    <input type="radio" class="btn-check" name="formatoSalida" id="btnEuropeo" value="europeo" checked autocomplete="off">
+                                    <label class="btn btn-outline-primary" for="btnEuropeo">Europeo</label>
+                                    
+                                    <input type="radio" class="btn-check" name="formatoSalida" id="btnAmericano" value="americano" autocomplete="off">
+                                    <label class="btn btn-outline-primary" for="btnAmericano">Americano</label>
+                                </div>
+                            </fieldset>
                         </div>
                     </div>
                 </div>
@@ -80,7 +83,7 @@
         <!-- Formulario -->
         <div class="card">
             <div class="card-header bg-secondary text-white">
-                <h5 class="mb-0">Formulario de Entrada - <span id="modoFormularioTexto">Modo Extendido</span></h5>
+                <h5 class="mb-0">Formulario de entrada</h5>
             </div>
             <div class="card-body" id="formularioContainer"></div>
         </div>
@@ -88,7 +91,7 @@
         <!-- Salida de datos -->
         <div class="card" id="salidaCard" style="display: none;">
             <div class="card-header bg-info text-white">
-                <h5 class="mb-0">Resultado - <span id="formatoSalidaTexto">Formato Europeo</span></h5>
+                <h5 class="mb-0">Resultado</h5>
             </div>
             <div class="card-body" id="salidaContainer"></div>
         </div>

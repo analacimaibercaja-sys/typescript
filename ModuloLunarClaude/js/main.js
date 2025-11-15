@@ -1,23 +1,17 @@
 // main.ts
-// Archivo principal de la aplicación
 import { Astronauta } from './astronauta.js';
 import { ValidadorIgneas, ValidadorMetamorficas, ValidadorSedimentarias } from './validadores.js';
 import { EntradaExtendida, EntradaReducida, FormatoEuropeo, FormatoAmericano } from './sistemas.js';
 import { Mision } from './mision.js';
 import { TipoRoca, TamanoGrano, Textura, Clasificacion } from './types.js';
-// Estado global de la aplicación
 let astronauta;
 let modoFormulario = "extendido";
-let formatoSalida = "europeo";
 let validadorActual;
 let sistemaEntrada;
 let sistemaSalida;
 let mision;
-/**
- * Inicializa la aplicación
- */
 function inicializarApp() {
-    astronauta = new Astronauta("AG001", "Agmunsen Pérez", 45);
+    astronauta = new Astronauta("AL31639", "Agmunsen Lacima", 49);
     validadorActual = new ValidadorIgneas();
     sistemaEntrada = new EntradaExtendida();
     sistemaSalida = new FormatoEuropeo();
@@ -26,9 +20,6 @@ function inicializarApp() {
     configurarEventos();
     renderizarFormulario();
 }
-/**
- * Muestra la información del astronauta
- */
 function mostrarInfoAstronauta() {
     const elemento = document.getElementById('astronautaInfo');
     if (elemento) {
@@ -36,11 +27,8 @@ function mostrarInfoAstronauta() {
             `${astronauta.dameNombreCompleto()} (${astronauta.dameIdentificador()}) - ${astronauta.dameEdad()} años`;
     }
 }
-/**
- * Configura todos los eventos de la aplicación
- */
 function configurarEventos() {
-    // Eventos de modo de formulario
+    /***  Eventos de modo de formulario ***/
     const radiosModo = document.querySelectorAll('input[name="modoFormulario"]');
     for (const radio of Array.from(radiosModo)) {
         radio.addEventListener('change', (e) => {
@@ -48,7 +36,7 @@ function configurarEventos() {
             cambiarModoFormulario(valor);
         });
     }
-    // Eventos de formato de salida
+    /*** Eventos de formato de salida ***/
     const radiosFormato = document.querySelectorAll('input[name="formatoSalida"]');
     for (const radio of Array.from(radiosFormato)) {
         radio.addEventListener('change', (e) => {
@@ -56,40 +44,22 @@ function configurarEventos() {
             cambiarFormatoSalida(valor);
         });
     }
-    // Evento de cambio de criterio
+    /*** Evento de cambio de criterio ***/
     document.getElementById('criterioSelect')?.addEventListener('change', (e) => {
         const select = e.target;
         cambiarCriterio(select.value);
     });
 }
-/**
- * Cambia el modo del formulario
- */
 function cambiarModoFormulario(modo) {
     modoFormulario = modo;
     sistemaEntrada = modo === 'extendido' ? new EntradaExtendida() : new EntradaReducida();
     mision.setEntrada(sistemaEntrada);
-    const textoModo = document.getElementById('modoFormularioTexto');
-    if (textoModo) {
-        textoModo.textContent = modo === 'extendido' ? 'Modo Extendido' : 'Modo Reducido';
-    }
     renderizarFormulario();
 }
-/**
- * Cambia el formato de salida
- */
 function cambiarFormatoSalida(formato) {
-    formatoSalida = formato;
     sistemaSalida = formato === 'europeo' ? new FormatoEuropeo() : new FormatoAmericano();
     mision.setSalida(sistemaSalida);
-    const textoFormato = document.getElementById('formatoSalidaTexto');
-    if (textoFormato) {
-        textoFormato.textContent = formato === 'europeo' ? 'Formato Europeo' : 'Formato Americano';
-    }
 }
-/**
- * Cambia el criterio de validación
- */
 function cambiarCriterio(tipo) {
     switch (tipo) {
         case 'igneas':
@@ -103,22 +73,12 @@ function cambiarCriterio(tipo) {
             break;
     }
     mision.setCriterio(validadorActual);
-    const criterioTexto = document.getElementById('criterioActual');
-    if (criterioTexto) {
-        criterioTexto.textContent = validadorActual.getNombre();
-    }
     ocultarResultados();
 }
-/**
- * Valida el formato del ID
- */
 function validarId(id) {
     const patron = /^[A-Za-z]{2}\d{4}[A-Za-z]{2}$/;
     return patron.test(id);
 }
-/**
- * Analiza el mineral del formulario
- */
 function analizarMineral() {
     const id = document.getElementById('inputId')?.value.trim();
     const nombre = document.getElementById('inputNombre')?.value.trim();
@@ -140,55 +100,58 @@ function analizarMineral() {
         alert('El ID debe tener el formato LLDDDDLL (2 letras, 4 números, 2 letras)');
         return;
     }
-    // Crear mineral
     const mineral = {
         id, nombre, grupo, dureza, tamanoCristales, tamanoGrano,
         clasificacion, temperaturaFormacion, estructura, formaGranos, textura
     };
-    // Analizar con la misión
     const resultado = mision.Analiza(mineral);
     mostrarResultado(resultado, mineral);
 }
-/**
- * Muestra el resultado del análisis
- */
 function mostrarResultado(resultado, mineral) {
     const resultadoCard = document.getElementById('resultadoCard');
     const resultadoHeader = document.getElementById('resultadoHeader');
     const resultadoTitulo = document.getElementById('resultadoTitulo');
     const resultadoEmoji = document.getElementById('resultadoEmoji');
     const resultadoMensaje = document.getElementById('resultadoMensaje');
-    if (!resultadoCard || !resultadoHeader || !resultadoTitulo || !resultadoEmoji || !resultadoMensaje) {
+    const formularioContainer = document.getElementById('formularioContainer');
+    if (!resultadoCard || !resultadoHeader || !resultadoTitulo || !resultadoEmoji || !resultadoMensaje || !formularioContainer) {
         return;
     }
     resultadoCard.style.display = 'block';
     if (resultado.valido) {
         resultadoHeader.className = 'card-header bg-success text-white';
-        resultadoTitulo.textContent = '✓ Mineral Válido';
+        resultadoTitulo.textContent = '✓ Mineral válido';
         resultadoEmoji.textContent = '😊';
         resultadoMensaje.textContent = resultado.mensaje;
-        // Mostrar salida formateada
+        // Mostrar salida formateada (europea o americanoa
         const salidaCard = document.getElementById('salidaCard');
         const salidaContainer = document.getElementById('salidaContainer');
         if (salidaCard && salidaContainer) {
             salidaCard.style.display = 'block';
             salidaContainer.innerHTML = mision.muestra(mineral);
+            // Mover la card de salida entre resultado y formulario
+            const formularioCard = formularioContainer.closest('.card');
+            if (formularioCard && formularioCard.parentNode) {
+                formularioCard.parentNode.insertBefore(salidaCard, formularioCard);
+            }
         }
     }
     else {
         resultadoHeader.className = 'card-header bg-danger text-white';
-        resultadoTitulo.textContent = '✗ Mineral No Válido';
-        resultadoEmoji.textContent = '😠';
+        resultadoTitulo.textContent = '✗ Mineral no válido';
+        resultadoEmoji.textContent = '😞';
         resultadoMensaje.textContent = resultado.mensaje;
+        // Si el mineral no es válido no mostramos la tarjeta de salida
         const salidaCard = document.getElementById('salidaCard');
         if (salidaCard) {
             salidaCard.style.display = 'none';
         }
     }
+    // Hacer scroll suave al resultado
+    setTimeout(() => {
+        resultadoCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 100);
 }
-/**
- * Oculta los resultados
- */
 function ocultarResultados() {
     const resultadoCard = document.getElementById('resultadoCard');
     const salidaCard = document.getElementById('salidaCard');
@@ -197,33 +160,29 @@ function ocultarResultados() {
     if (salidaCard)
         salidaCard.style.display = 'none';
 }
-/**
- * Limpia el formulario
- */
 function limpiarFormulario() {
     renderizarFormulario();
     ocultarResultados();
+    // Devolver la card de salida a su posición original (al final)
+    const salidaCard = document.getElementById('salidaCard');
+    const contenedorPrincipal = salidaCard?.parentNode;
+    if (salidaCard && contenedorPrincipal) {
+        contenedorPrincipal.appendChild(salidaCard);
+    }
 }
-/**
- * Renderiza el formulario según el modo actual
- */
 function renderizarFormulario() {
     const container = document.getElementById('formularioContainer');
     if (!container)
         return;
     const isExtendido = modoFormulario === "extendido";
     container.innerHTML = generarHTMLFormulario(isExtendido);
-    // Configurar eventos del formulario
     document.getElementById('btnAnalizar')?.addEventListener('click', analizarMineral);
     document.getElementById('btnLimpiar')?.addEventListener('click', limpiarFormulario);
 }
-/**
- * Genera el HTML del formulario
- */
 function generarHTMLFormulario(isExtendido) {
     const labelId = isExtendido ? '<label class="form-label-extended">ID (LLDDDDLL)</label>' : '';
     const labelNombre = isExtendido ? '<label class="form-label-extended">Nombre</label>' : '';
-    const labelDureza = isExtendido ? '<label class="form-label-extended">Dureza (Escala de Mohs, 1-10)</label>' : '';
+    const labelDureza = isExtendido ? '<label class="form-label-extended">Dureza (1-10)</label>' : '';
     const labelCristales = isExtendido ? '<label class="form-label-extended">Tamaño de cristales (0-10)</label>' : '';
     const labelClasificacion = isExtendido ? '<label class="form-label-extended">Clasificación</label>' : '';
     const labelTemperatura = isExtendido ? '<label class="form-label-extended">Temperatura de formación (K)</label>' : '';
