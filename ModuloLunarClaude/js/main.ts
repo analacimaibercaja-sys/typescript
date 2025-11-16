@@ -100,7 +100,7 @@ function validarId(id: string): boolean {
     const patron = /^[A-Za-z]{2}\d{4}[A-Za-z]{2}$/;
     return patron.test(id);
 }
-
+/*
 function analizarMineral(): void {
     limpiarValidaciones();
 
@@ -143,6 +143,115 @@ function analizarMineral(): void {
 
     const resultado = mision.Analiza(mineral);
     mostrarResultado(resultado, mineral);
+}
+    */
+   function analizarMineral(): void {
+    limpiarValidaciones();
+
+    const datosFormulario = obtenerDatosFormulario();
+    
+    if (!validarDatosFormulario(datosFormulario)) {
+        alert('Por favor, complete todos los campos obligatorios');
+        return;
+    }
+
+    if (!validarId(datosFormulario.id)) {
+        marcarCampoInvalido('inputId');
+        alert('El ID debe tener el formato LLDDDDLL (2 letras, 4 números, 2 letras)');
+        return;
+    }
+
+    const mineral = crearMineral(datosFormulario);
+    const resultado = mision.Analiza(mineral);
+    mostrarResultado(resultado, mineral);
+}
+
+/**
+ * Obtiene todos los datos del formulario
+ */
+function obtenerDatosFormulario() {
+    return {
+        id: (document.getElementById('inputId') as HTMLInputElement)?.value.trim(),
+        nombre: (document.getElementById('inputNombre') as HTMLInputElement)?.value.trim(),
+        grupo: (document.querySelector('input[name="grupo"]:checked') as HTMLInputElement)?.value as TipoRoca,
+        dureza: parseInt((document.getElementById('inputDureza') as HTMLInputElement)?.value),
+        tamanoCristales: parseFloat((document.getElementById('inputCristales') as HTMLInputElement)?.value),
+        tamanoGrano: (document.querySelector('input[name="tamanoGrano"]:checked') as HTMLInputElement)?.value as TamanoGrano,
+        clasificacion: (document.getElementById('inputClasificacion') as HTMLSelectElement)?.value as Clasificacion,
+        temperaturaFormacion: parseFloat((document.getElementById('inputTemperatura') as HTMLInputElement)?.value),
+        estructura: (document.getElementById('inputEstructura') as HTMLTextAreaElement)?.value.trim(),
+        formaGranos: (document.getElementById('inputForma') as HTMLTextAreaElement)?.value.trim(),
+        textura: (document.querySelector('input[name="textura"]:checked') as HTMLInputElement)?.value as Textura
+    };
+}
+
+/**
+ * Valida que todos los campos obligatorios estén completos
+ * @returns true si todos los campos son válidos, false en caso contrario
+ */
+function validarDatosFormulario(datos: ReturnType<typeof obtenerDatosFormulario>): boolean {
+    let esValido = true;
+
+    if (!datos.id) {
+        marcarCampoInvalido('inputId');
+        esValido = false;
+    }
+    
+    if (!datos.nombre) {
+        marcarCampoInvalido('inputNombre');
+        esValido = false;
+    }
+    
+    if (!datos.grupo) {
+        marcarGrupoRadioInvalido('grupo');
+        esValido = false;
+    }
+    
+    if (!datos.tamanoGrano) {
+        marcarGrupoRadioInvalido('tamanoGrano');
+        esValido = false;
+    }
+    
+    if (!datos.clasificacion) {
+        marcarCampoInvalido('inputClasificacion');
+        esValido = false;
+    }
+    
+    if (!datos.estructura) {
+        marcarCampoInvalido('inputEstructura');
+        esValido = false;
+    }
+    
+    if (!datos.formaGranos) {
+        marcarCampoInvalido('inputForma');
+        esValido = false;
+    }
+    
+    if (!datos.textura) {
+        marcarGrupoRadioInvalido('textura');
+        esValido = false;
+    }
+
+    return esValido;
+}
+
+/**
+ * Crea un objeto Mineral a partir de los datos del formulario
+ */
+function crearMineral(datos: ReturnType<typeof obtenerDatosFormulario>): Mineral {
+    return {
+        id: datos.id,
+        nombre: datos.nombre,
+        grupo: datos.grupo,
+        dureza: datos.dureza,
+        tamanoCristales: datos.tamanoCristales,
+        tamanoGrano: datos.tamanoGrano,
+        clasificacion: datos.clasificacion,
+        temperaturaFormacion: datos.temperaturaFormacion,
+        estructura: datos.estructura,
+        formaGranos: datos.formaGranos,
+        textura: datos.textura
+    };
 }
 
 function mostrarResultado(resultado: { valido: boolean; mensaje: string }, mineral: Mineral): void {

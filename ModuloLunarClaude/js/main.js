@@ -82,51 +82,142 @@ function validarId(id) {
     const patron = /^[A-Za-z]{2}\d{4}[A-Za-z]{2}$/;
     return patron.test(id);
 }
-function analizarMineral() {
+/*
+function analizarMineral(): void {
     limpiarValidaciones();
-    const id = document.getElementById('inputId')?.value.trim();
-    const nombre = document.getElementById('inputNombre')?.value.trim();
-    const grupo = document.querySelector('input[name="grupo"]:checked')?.value;
-    const dureza = parseInt(document.getElementById('inputDureza')?.value);
-    const tamanoCristales = parseFloat(document.getElementById('inputCristales')?.value);
-    const tamanoGrano = document.querySelector('input[name="tamanoGrano"]:checked')?.value;
-    const clasificacion = document.getElementById('inputClasificacion')?.value;
-    const temperaturaFormacion = parseFloat(document.getElementById('inputTemperatura')?.value);
-    const estructura = document.getElementById('inputEstructura')?.value.trim();
-    const formaGranos = document.getElementById('inputForma')?.value.trim();
-    const textura = document.querySelector('input[name="textura"]:checked')?.value;
+
+    const id = (document.getElementById('inputId') as HTMLInputElement)?.value.trim();
+    const nombre = (document.getElementById('inputNombre') as HTMLInputElement)?.value.trim();
+    const grupo = (document.querySelector('input[name="grupo"]:checked') as HTMLInputElement)?.value as TipoRoca;
+    const dureza = parseInt((document.getElementById('inputDureza') as HTMLInputElement)?.value);
+    const tamanoCristales = parseFloat((document.getElementById('inputCristales') as HTMLInputElement)?.value);
+    const tamanoGrano = (document.querySelector('input[name="tamanoGrano"]:checked') as HTMLInputElement)?.value as TamanoGrano;
+    const clasificacion = (document.getElementById('inputClasificacion') as HTMLSelectElement)?.value as Clasificacion;
+    const temperaturaFormacion = parseFloat((document.getElementById('inputTemperatura') as HTMLInputElement)?.value);
+    const estructura = (document.getElementById('inputEstructura') as HTMLTextAreaElement)?.value.trim();
+    const formaGranos = (document.getElementById('inputForma') as HTMLTextAreaElement)?.value.trim();
+    const textura = (document.querySelector('input[name="textura"]:checked') as HTMLInputElement)?.value as Textura;
+
     // Validaciones
     if (!id || !nombre || !grupo || !tamanoGrano || !clasificacion || !textura || !estructura || !formaGranos) {
-        if (!id)
-            marcarCampoInvalido('inputId');
-        if (!nombre)
-            marcarCampoInvalido('inputNombre');
-        if (!grupo)
-            marcarGrupoRadioInvalido('grupo');
-        if (!tamanoGrano)
-            marcarGrupoRadioInvalido('tamanoGrano');
-        if (!clasificacion)
-            marcarCampoInvalido('inputClasificacion');
-        if (!estructura)
-            marcarCampoInvalido('inputEstructura');
-        if (!formaGranos)
-            marcarCampoInvalido('inputForma');
-        if (!textura)
-            marcarGrupoRadioInvalido('textura');
+        if (!id) marcarCampoInvalido('inputId');
+        if (!nombre) marcarCampoInvalido('inputNombre');
+        if (!grupo) marcarGrupoRadioInvalido('grupo');
+        if (!tamanoGrano) marcarGrupoRadioInvalido('tamanoGrano');
+        if (!clasificacion) marcarCampoInvalido('inputClasificacion');
+        if (!estructura) marcarCampoInvalido('inputEstructura');
+        if (!formaGranos) marcarCampoInvalido('inputForma');
+        if (!textura) marcarGrupoRadioInvalido('textura');
         alert('Por favor, complete todos los campos obligatorios');
         return;
     }
+
     if (!validarId(id)) {
         marcarCampoInvalido('inputId');
         alert('El ID debe tener el formato LLDDDDLL (2 letras, 4 números, 2 letras)');
         return;
     }
-    const mineral = {
+
+    const mineral: Mineral = {
         id, nombre, grupo, dureza, tamanoCristales, tamanoGrano,
         clasificacion, temperaturaFormacion, estructura, formaGranos, textura
     };
+
     const resultado = mision.Analiza(mineral);
     mostrarResultado(resultado, mineral);
+}
+    */
+function analizarMineral() {
+    limpiarValidaciones();
+    const datosFormulario = obtenerDatosFormulario();
+    if (!validarDatosFormulario(datosFormulario)) {
+        alert('Por favor, complete todos los campos obligatorios');
+        return;
+    }
+    if (!validarId(datosFormulario.id)) {
+        marcarCampoInvalido('inputId');
+        alert('El ID debe tener el formato LLDDDDLL (2 letras, 4 números, 2 letras)');
+        return;
+    }
+    const mineral = crearMineral(datosFormulario);
+    const resultado = mision.Analiza(mineral);
+    mostrarResultado(resultado, mineral);
+}
+/**
+ * Obtiene todos los datos del formulario
+ */
+function obtenerDatosFormulario() {
+    return {
+        id: document.getElementById('inputId')?.value.trim(),
+        nombre: document.getElementById('inputNombre')?.value.trim(),
+        grupo: document.querySelector('input[name="grupo"]:checked')?.value,
+        dureza: parseInt(document.getElementById('inputDureza')?.value),
+        tamanoCristales: parseFloat(document.getElementById('inputCristales')?.value),
+        tamanoGrano: document.querySelector('input[name="tamanoGrano"]:checked')?.value,
+        clasificacion: document.getElementById('inputClasificacion')?.value,
+        temperaturaFormacion: parseFloat(document.getElementById('inputTemperatura')?.value),
+        estructura: document.getElementById('inputEstructura')?.value.trim(),
+        formaGranos: document.getElementById('inputForma')?.value.trim(),
+        textura: document.querySelector('input[name="textura"]:checked')?.value
+    };
+}
+/**
+ * Valida que todos los campos obligatorios estén completos
+ * @returns true si todos los campos son válidos, false en caso contrario
+ */
+function validarDatosFormulario(datos) {
+    let esValido = true;
+    if (!datos.id) {
+        marcarCampoInvalido('inputId');
+        esValido = false;
+    }
+    if (!datos.nombre) {
+        marcarCampoInvalido('inputNombre');
+        esValido = false;
+    }
+    if (!datos.grupo) {
+        marcarGrupoRadioInvalido('grupo');
+        esValido = false;
+    }
+    if (!datos.tamanoGrano) {
+        marcarGrupoRadioInvalido('tamanoGrano');
+        esValido = false;
+    }
+    if (!datos.clasificacion) {
+        marcarCampoInvalido('inputClasificacion');
+        esValido = false;
+    }
+    if (!datos.estructura) {
+        marcarCampoInvalido('inputEstructura');
+        esValido = false;
+    }
+    if (!datos.formaGranos) {
+        marcarCampoInvalido('inputForma');
+        esValido = false;
+    }
+    if (!datos.textura) {
+        marcarGrupoRadioInvalido('textura');
+        esValido = false;
+    }
+    return esValido;
+}
+/**
+ * Crea un objeto Mineral a partir de los datos del formulario
+ */
+function crearMineral(datos) {
+    return {
+        id: datos.id,
+        nombre: datos.nombre,
+        grupo: datos.grupo,
+        dureza: datos.dureza,
+        tamanoCristales: datos.tamanoCristales,
+        tamanoGrano: datos.tamanoGrano,
+        clasificacion: datos.clasificacion,
+        temperaturaFormacion: datos.temperaturaFormacion,
+        estructura: datos.estructura,
+        formaGranos: datos.formaGranos,
+        textura: datos.textura
+    };
 }
 function mostrarResultado(resultado, mineral) {
     const resultadoCard = document.getElementById('resultadoCard');
