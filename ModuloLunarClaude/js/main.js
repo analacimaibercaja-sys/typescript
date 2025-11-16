@@ -83,6 +83,7 @@ function validarId(id) {
     return patron.test(id);
 }
 function analizarMineral() {
+    limpiarValidaciones();
     const id = document.getElementById('inputId')?.value.trim();
     const nombre = document.getElementById('inputNombre')?.value.trim();
     const grupo = document.querySelector('input[name="grupo"]:checked')?.value;
@@ -95,11 +96,28 @@ function analizarMineral() {
     const formaGranos = document.getElementById('inputForma')?.value.trim();
     const textura = document.querySelector('input[name="textura"]:checked')?.value;
     // Validaciones
-    if (!id || !nombre || !grupo || !tamanoGrano || !clasificacion || !textura) {
+    if (!id || !nombre || !grupo || !tamanoGrano || !clasificacion || !textura || !estructura || !formaGranos) {
+        if (!id)
+            marcarCampoInvalido('inputId');
+        if (!nombre)
+            marcarCampoInvalido('inputNombre');
+        if (!grupo)
+            marcarGrupoRadioInvalido('grupo');
+        if (!tamanoGrano)
+            marcarGrupoRadioInvalido('tamanoGrano');
+        if (!clasificacion)
+            marcarCampoInvalido('inputClasificacion');
+        if (!estructura)
+            marcarCampoInvalido('inputEstructura');
+        if (!formaGranos)
+            marcarCampoInvalido('inputForma');
+        if (!textura)
+            marcarGrupoRadioInvalido('textura');
         alert('Por favor, complete todos los campos obligatorios');
         return;
     }
     if (!validarId(id)) {
+        marcarCampoInvalido('inputId');
         alert('El ID debe tener el formato LLDDDDLL (2 letras, 4 números, 2 letras)');
         return;
     }
@@ -286,13 +304,13 @@ function generarHTMLFormulario(isExtendido) {
         <div class="mb-3">
             ${labelEstructura}
             <textarea class="form-control" id="inputEstructura" rows="2"
-                      placeholder="${!isExtendido ? 'Estructura - Texto libre' : 'Texto libre sobre la estructura'}" required></textarea>
+                      placeholder="${!isExtendido ? 'Estructura de la roca' : ''}" required></textarea>
         </div>
 
         <div class="mb-3">
             ${labelForma}
             <textarea class="form-control" id="inputForma" rows="2"
-                      placeholder="${!isExtendido ? 'Forma de los granos - Texto libre' : 'Texto libre sobre la forma de los granos'}" required></textarea>
+                      placeholder="${!isExtendido ? 'Forma de los granos' : ''}" required></textarea>
         </div>
 
         <fieldset class="mb-3">
@@ -318,6 +336,17 @@ function generarHTMLFormulario(isExtendido) {
             <button type="button" class="btn btn-outline-secondary" id="btnLimpiar">Limpiar</button>
         </div>
     `;
+}
+function marcarCampoInvalido(idCampo) {
+    document.getElementById(idCampo)?.classList.add('campo-invalido');
+}
+function marcarGrupoRadioInvalido(nombreGrupo) {
+    document.querySelector(`input[name="${nombreGrupo}"]`)?.closest('fieldset')?.classList.add('fieldset-invalido');
+}
+function limpiarValidaciones() {
+    document.querySelectorAll('.campo-invalido, .fieldset-invalido').forEach(el => {
+        el.classList.remove('campo-invalido', 'fieldset-invalido');
+    });
 }
 // Inicializar cuando el DOM esté listo
 document.addEventListener('DOMContentLoaded', inicializarApp);
