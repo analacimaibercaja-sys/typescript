@@ -171,13 +171,11 @@ function mostrarResultado(resultado, mineral) {
     const resultadoTitulo = document.getElementById("resultadoTitulo");
     const resultadoEmoji = document.getElementById("resultadoEmoji");
     const resultadoMensaje = document.getElementById("resultadoMensaje");
-    const formularioContainer = document.getElementById("formularioContainer");
     if (!resultadoCard ||
         !resultadoHeader ||
         !resultadoTitulo ||
         !resultadoEmoji ||
-        !resultadoMensaje ||
-        !formularioContainer) {
+        !resultadoMensaje) {
         return;
     }
     resultadoCard.style.display = "block";
@@ -186,14 +184,12 @@ function mostrarResultado(resultado, mineral) {
         resultadoTitulo.textContent = "✓ Mineral válido";
         resultadoEmoji.textContent = "😊";
         resultadoMensaje.textContent = resultado.mensaje;
+        // Mostrar tabla de datos
         const salidaCard = document.getElementById("salidaCard");
         const salidaContainer = document.getElementById("salidaContainer");
         if (salidaCard && salidaContainer) {
             salidaCard.style.display = "block";
             salidaContainer.innerHTML = mision.muestra(mineral);
-            // Mover la card de salida entre resultado y formulario
-            const formularioCard = formularioContainer.closest(".card");
-            formularioCard?.parentNode?.insertBefore(salidaCard, formularioCard);
         }
     }
     else {
@@ -201,11 +197,13 @@ function mostrarResultado(resultado, mineral) {
         resultadoTitulo.textContent = "✗ Mineral no válido";
         resultadoEmoji.textContent = "😞";
         resultadoMensaje.textContent = resultado.mensaje;
+        // Ocultar tabla si no es válido
         const salidaCard = document.getElementById("salidaCard");
         if (salidaCard) {
             salidaCard.style.display = "none";
         }
     }
+    // Scroll al resultado
     setTimeout(() => {
         resultadoCard.scrollIntoView({ behavior: "smooth", block: "start" });
     }, 100);
