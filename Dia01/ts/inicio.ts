@@ -14,11 +14,11 @@ miPrimerPunto.x=10;
 miPrimerPunto.y=20;
 
 class Alumno{
-    nombre: String;
+    nombre: string;
     edad:number;
     soltero:boolean;
 
-    constructor(nombre:String, edad:number, soltero:boolean){
+    constructor(nombre:string, edad:number, soltero:boolean){
         this.nombre=nombre;
         this.edad=edad;
         this.soltero=soltero;
@@ -31,9 +31,9 @@ let alumno2=new Alumno("Ana",43,false);
 class boton{
     posicionX:number;
     posicionY:number;
-    textoBoton:String;
+    textoBoton:string;
 
-    constructor(posicionX:number, posicionY:number,textoBoton:String){
+    constructor(posicionX:number, posicionY:number,textoBoton:string){
         this.posicionX=posicionX;
         this.posicionY=posicionY;
         this.textoBoton=textoBoton;
@@ -49,9 +49,9 @@ let boton3=new boton(80,90,"Hola")
 class viewport{
     anchura: number;
     altura: number;
-    color:String;
+    color:string;
 
-    constructor(anchura:number, altura:number,color:String){
+    constructor(anchura:number, altura:number,color:string){
         this.anchura=anchura;
         this.altura=altura;
         this.color=color;

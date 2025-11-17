@@ -14,7 +14,7 @@ export function capitalize(text) {
     return text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();
 }
 function inicializarApp() {
-    astronauta = new Astronauta("AL31639", "Agmunsen Lacima", 49);
+    astronauta = new Astronauta("AH31639", "Agmunsen Haakon", 41);
     validadorActual = new ValidadorIgneas();
     sistemaEntrada = new EntradaExtendida();
     sistemaSalida = new FormatoEuropeo();
@@ -190,6 +190,7 @@ function mostrarResultado(resultado, mineral) {
         if (salidaCard && salidaContainer) {
             salidaCard.style.display = "block";
             salidaContainer.innerHTML = mision.muestra(mineral);
+            addRoca();
         }
     }
     else {
@@ -207,6 +208,54 @@ function mostrarResultado(resultado, mineral) {
     setTimeout(() => {
         resultadoCard.scrollIntoView({ behavior: "smooth", block: "start" });
     }, 100);
+}
+function addRoca() {
+    const rocaId = document.querySelector('#inputId');
+    const rocaNombre = document.querySelector('#inputNombre');
+    const rocaGrupo = document.querySelector('input[name="grupo"]:checked');
+    const rocaDureza = document.querySelector('#inputDureza');
+    const rocaCristales = document.querySelector('#inputCristales');
+    const rocaTamanoGrano = document.querySelector('input[name="tamanoGrano"]:checked');
+    const rocaClasificacion = document.querySelector('#inputClasificacion');
+    const rocaTemperatura = document.querySelector('#inputTemperatura');
+    const rocaEstructura = document.querySelector('#inputEstructura');
+    const rocaForma = document.querySelector('#inputForma');
+    const rocaTextura = document.querySelector('input[name="textura"]:checked');
+    // Verificar que los elementos existen
+    if (!rocaId || !rocaNombre) {
+        console.error('No se encontraron los elementos del formulario');
+        return;
+    }
+    const nuevaRoca = {
+        identificador: rocaId.value,
+        nombre: rocaNombre.value,
+        grupo: rocaGrupo.value,
+        dureza: rocaDureza.value,
+        tamanoCristales: rocaCristales.value,
+        tamanoGrano: rocaTamanoGrano.value,
+        clasificacion: rocaClasificacion.value,
+        temperaturaFormacion: rocaTemperatura.value,
+        estructura: rocaEstructura.value,
+        formaGranos: rocaForma.value,
+        textura: rocaTextura.value
+    };
+    const transaction = db.transaction(['rocas_db'], 'readwrite');
+    const objectStore = transaction.objectStore('rocas_db');
+    const query = objectStore.add(nuevaRoca);
+    query.addEventListener('success', () => {
+        rocaId.value = '';
+        rocaNombre.value = '';
+        rocaGrupo.value = '';
+        rocaDureza.value = '';
+        rocaCristales.value = '';
+        rocaTamanoGrano.value = '';
+        rocaClasificacion.value = '';
+        rocaTemperatura.value = '';
+        rocaEstructura.value = '';
+        rocaForma.value = '';
+        rocaTextura.value = '';
+    });
+    transaction.addEventListener('error', () => console.log('Transaction error'));
 }
 function ocultarResultados() {
     const resultadoCard = document.getElementById("resultadoCard");
