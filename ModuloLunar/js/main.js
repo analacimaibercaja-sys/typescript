@@ -51,6 +51,10 @@ function configurarEventos() {
         const select = e.target;
         cambiarCriterio(select.value);
     });
+    /*** Evento del botón Ver Inventario ***/
+    document.getElementById("verInventario")?.addEventListener("click", () => {
+        window.location.href = "inventario.html";
+    });
 }
 function cambiarModoFormulario(modo) {
     modoFormulario = modo;

@@ -85,6 +85,11 @@ function configurarEventos(): void {
     const select = e.target as HTMLSelectElement;
     cambiarCriterio(select.value);
   });
+
+  /*** Evento del botón Ver Inventario ***/
+  document.getElementById("verInventario")?.addEventListener("click", () => {
+    window.location.href = "inventario.html";
+  });
 }
 
 function cambiarModoFormulario(modo: string): void {
@@ -362,7 +367,6 @@ function addRoca() {
 
   transaction.addEventListener('error', () => console.log('Transaction error'));
 }
-
 
 function ocultarResultados(): void {
   const resultadoCard = document.getElementById("resultadoCard");

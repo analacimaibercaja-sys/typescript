@@ -6,7 +6,6 @@ openOrCreateDB.addEventListener('error', () => console.error('Error al abrir la 
 openOrCreateDB.addEventListener('success', () => {
   console.log('Successfully opened DB');
   db = openOrCreateDB.result;
-  //showTodos();
 });
 
 
